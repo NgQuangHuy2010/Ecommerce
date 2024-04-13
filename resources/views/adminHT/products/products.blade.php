@@ -10,13 +10,15 @@
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
-                        <a href="{{route('ht.productsadd')}}" class="btn btn-info">Tạo mới</a>
+                        <a href="{{route('ht.productsadd')}}" class="btn btn-rounded btn-info"><span
+                                        class="btn-icon-left text-info"><i class="fa fa-plus color-info"></i>
+                                    </span>Tạo mới</a>
                            
                         </ol>
                     </div>
                 </div>
                 <!-- row -->
-
+               
 
                 <div class="row">
                     <div class="col-12">
@@ -31,6 +33,7 @@
                                             <tr>
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
+                                                <th>Danh mục</th>
                                                 <th>Mô tả</th>
                                                 <th>Giá</th>
                                                 <th>Hình ảnh</th>
@@ -44,6 +47,7 @@
                                             <tr>
                                                 <td>{{$value['id']}}</td>
                                                 <td>{{$value['name']}}</td>
+                                                <td>{{$value->categories->name}}</td>
                                                 <td>{{$value['desc']}}</td>
                                                 <td>{{$value['price']}}</td>
                                                 <td><img width="100" height="100" src="{{asset('public/file/img/img_product/'.$value->image)}}" alt=""></td>

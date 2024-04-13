@@ -1,119 +1,158 @@
-@extends ('adminHT/layout')
+
+@extends ('adminHT.layout')
 @section ('content')
-<div class="container-fluid px-4 mt-4">
-    <ol class="breadcrumb mb-4">
-        <h3 class="breadcrumb-item active">Add product</h3>
-    </ol>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.6.2/css/dropify.min.css" rel="stylesheet">
+<div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <diveds class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Tạo mới sản phẩm</h4>
+                           
+                        </div>
+                    </diveds>
+                   
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-xl-12 col-xxl-12">
+                        <div class="card">
+                       
+                            <div class="card-body">
+                                <form action="{{route('ht.productsadd')}}" method="post" enctype="multipart/form-data" id="step-form-horizontal" class="step-form-horizontal">
+                                @csrf    
+                                <div>
+                             
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="form-group">
+                                                       <h5><label class="text-label">Tên sản phẩm </label></h5> 
+                                                        <input  value="{{old('name')}}"  type="text" class="form-control" name="name">
+                                                                {!!$errors->first('name', '<div class="has-error text-danger">:message</div>')!!}                                               
+                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-4">
+                                                    <h5><label class="text-label">Danh mục </label></h5> 
+                                                 <select class="form-control" name="idcat">
+                                                    @foreach($cate as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                      @endforeach
+                                                    </select>
+                                                </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="form-group">
+                                                       <h5><label class="text-label">Từ khóa</label><h5> 
+                                                        <input type="text" class="form-control" value="{{old('keyword')}}" name="keyword">
+                                                        {!!$errors->first('keyword', '<div class="has-error text-danger">:message</div>')!!}
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="form-group">
+                                                     <h5>   <label class="text-label">Mô tả</label></h5>
+                                                        <div class="input-group">
+                                                            <input  class="form-control" value="{{old('desc')}}" name="desc">
+                                                        {!!$errors->first('desc', '<div class="has-error text-danger">:message</div>')!!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="form-group">
+                                                   <h5>     <label class="text-label">Giá</label></h5>
+                                                        <div class="input-group">
+                                                            <input type="text"  class="form-control" name="price">
+                                                        {!!$errors->first('price', '<div class="has-error text-danger">:message</div>')!!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="form-group">
+                                                   <h5>     <label class="text-label">Nội dung chi tiết</label></h5>
+                                                        <div class="input-group">
+                                                        <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+                                                         <script>   CKEDITOR.replace('content');</script>
+                                                        {!!$errors->first('datecreate', '<div class="has-error text-danger">:message</div>')!!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                <fieldset class="form-group">
+                                            <div class="row">
+                                               <h5> <label class="col-form-label col-sm-12 pt-0">Trạng thái</label></h5>
+                                                <div class="col-sm-10">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status" checked value=1>
+                                                        <label class="form-check-label">
+                                                          Mở
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"  name="status"  value=0>
+                                                        <label class="form-check-label">
+                                                          Khóa
+                                                        </label>
+                                                    </div>
+                                               
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                            </div>
+                                        </section>
+                                                <div class="compose-content">
+                                            <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh</h5>
 
-    <form action="{{route('ht.productsadd')}}" method="post" class="form" enctype="multipart/form-data">
-        @csrf
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="name" value="{{old('name')}}">
-                {!!$errors->first('name','<div class="has-error text-danger">:message</div>')!!}
+                                            <div  class="d-flex flex-column align-items-center justify-content-center">
+                                                <div class="fallback w-100">
+                                                    <input type="file" onchange="onUpload(this)" class="dropify" name="image" accept="image/*">
+                                                 {!!$errors->first('image', '<div class="has-error text-danger">:message</div>')!!}
 
+                                                </div>
+                                            </div>
+                                            <div id="preview" class="mt-4"></div>
+                                        </div>
+                                        <div class="compose-content">
+                                            <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh chi tiết</h5>
+
+                                            <div  class="d-flex flex-column align-items-center justify-content-center">
+                                                <div class="fallback w-100">
+                                                    <input type="file" onchange="onUpload(this)" class="dropify" name="images[]" accept="image/*">
+                                                     {!!$errors->first('images.*', '<div class="has-error text-danger">:message</div>')!!}
+
+                                                </div>
+                                            </div>
+                                            <div id="preview" class="mt-4"></div>
+                                        </div>
+                                    <div class="text-left mt-4 mb-5">
+                                        <button class="btn btn-primary btn-sl-sm mr-3" type="submit"><span
+                                                class="mr-2"><i class="fa fa-paper-plane"></i></span> Thêm</button>
+                                        <a class="btn btn-dark btn-sl-sm" href="{{route('ht.products')}}" ><span class="mr-2"><i
+                                                    class="fa fa-times" aria-hidden="true"></i></span> Quay về</a>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Keyword</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="keyword" value="{{old('keyword')}}">
-                {!!$errors->first('keyword','<div class="has-error text-danger">:message</div>')!!}
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="desc" value="{{old('desc')}}">
-                {!!$errors->first('desc','<div class="has-error text-danger">:message</div>')!!}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.6.2/js/dropify.min.js"></script>
+    <script>
+    function onUpload(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var preview = document.getElementById('preview');
+                preview.innerHTML = '<img src="' + e.target.result + '" alt="Uploaded Image" style="max-width: 100%; max-height: 300px;">';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
-            <div class="col-sm-5">
-                <input type="file" class="form-control" name="image">
-                {!!$errors->first('image','<div class="has-error text-danger">:message</div>')!!}
+    // Initialize Dropify plugin
+    $('.dropify').dropify();
+</script>
 
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Images</label>
-            <div class="col-sm-5">
-                <input type="file" class="form-control"  multiple="multiple" name="images[]">
-                {!!$errors->first('images.*','<div class="has-error text-danger">:message</div>')!!}
-
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Price</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" value="{{old('price')}}" name="price">
-                {!!$errors->first('price','<div class="has-error text-danger">:message</div>')!!}
-
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
-            <div class="col-sm-5">
-                <select class="form-control form-select" aria-label="Default select example" name="idcat" id="">
-                    @foreach($cate as $item)
-                    <option value="{{$item->id}}">{{$item->name}}</option>
-                   @endforeach
-                </select>
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Content</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
-                <script>   CKEDITOR.replace('content');</script>
-                {!!$errors->first('datecreate','<div class="has-error text-danger">:message</div>')!!}
-
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">DateCreate</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" value="{{old('datecreate')}}" name="datecreate">
-                {!!$errors->first('datecreate','<div class="has-error text-danger">:message</div>')!!}
-
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">DateEdit</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" value="{{old('dateedit')}}" name="dateedit">
-                {!!$errors->first('dateedit','<div class="has-error text-danger">:message</div>')!!}
-
-            </div>
-        </div>
-        <div class="mb-3  ">
-            <label for="" class="col-sm-2 col-form-label">Status</label>
-            <div class="form-check form-check-inline ">
-                <input class="form-check-input" type="radio" name="status" checked value=1>
-                <label class="form-check-label">Active</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value=0>
-                <label class="form-check-label">Deactivate</label>
-            </div>
-
-        </div>
-
-
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5 ">
-                <button class="btn btn-success" type="submit" href="" role="button">Add</button>
-                <a class="btn btn-secondary" href="{{route('ht.products')}}" role="button">Back</a>
-
-            </div>
-        </div>
-    </form>
-</div>
 @endsection

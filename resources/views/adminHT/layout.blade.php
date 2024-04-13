@@ -14,6 +14,7 @@
 
 
     <link href="{{asset('public')}}/webadmin/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="{{asset('public')}}/editor/ckeditor/ckeditor.js"></script>
 
 </head>
 

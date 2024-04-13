@@ -14,7 +14,7 @@ class ProductsController extends Controller
   {
     
 
-    $data["products"] = Products::get();
+    $data["products"] = Products::with('categories')->get();
     return view("adminHT/products/products", $data);
   }
   public function add(Request $request)
@@ -61,8 +61,8 @@ class ProductsController extends Controller
 }
       // $prod->images = $request->images;
       $prod->idcat = $request->idcat;
-      $prod->datecreate = time();
-      $prod->dateedit = time();
+      // $prod->datecreate = time();
+      // $prod->dateedit = time();
       $prod->status = $request->status;
       $prod->save();
       toastr()->success(' More success!');
@@ -120,8 +120,7 @@ class ProductsController extends Controller
 }
       $edit->price = $request->price;
       $edit->idcat = $request->idcat;
-      $edit->datecreate = time();
-      $edit->dateedit = time();
+     
       $edit->status = $request->status;
       $edit->content = $request->content;
       $edit->save();

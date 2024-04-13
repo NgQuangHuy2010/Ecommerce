@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Orderdetails extends Model
 {
     protected $table = "orderdetails";
-    protected $fillable = ["id_product","quantity", "id_order","status"];
+    protected $fillable = ["id_product","quantity", "id_order","status","created_at"];
     protected $primarykey = "id_detail ";
-    public $timestamps = false;
+    public $timestamps = true;
 }

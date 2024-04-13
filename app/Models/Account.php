@@ -14,6 +14,6 @@ class Account extends Authenticatable
     protected $primarykey="id";
     protected $fillable = ["username", "address", "email", "fullname","phone","role", "status"];
     protected $hidden =["password","remember_token" ];
-    public $timestamps = false;
+    public $timestamps = true;
 
 }
