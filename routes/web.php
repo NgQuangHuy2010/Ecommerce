@@ -1,0 +1,51 @@
+<?php
+
+use App\Http\Controllers\Admin\SecurityController;
+use App\Http\Controllers\Interface\SecureController;
+use App\Models\Categorie;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategorieController;
+use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Interface\HomeController;
+use App\Http\Controllers\Interface\CartController;
+use App\Http\Middleware\Phanquyen;
+//duong dan trang chu interface
+Route::get("/", [HomeController::class, 'index'])->name("gd.home");
+
+Route::get("/details/{name}/{key}", [HomeController::class, 'details'])->name("gd.details");
+Route::get("/product/{key}", [HomeController::class, 'product'])->name("gd.product");
+Route::get("/search/{key?}", [HomeController::class, 'search'])->name("gd.search"); //{key?} ? la nhap gi cung dc
+Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_result");
+Route::match(['get','post'],"/check-out", [CartController::class, 'checkout'])->name("gd.checkout"); 
+
+//login
+Route::match(['get','post'],"/login", [SecureController::class, 'login'])->name("gd.login");
+Route::get("/logout", [SecureController::class, 'logout'])->name("gd.logout");
+Route::match(['get','post'],"/register", [SecureController::class, 'register'])->name("gd.register");
+// Route::get("/test", [SecureController::class, 'test'])->name("gd.test");
+//reset password
+Route::get("/forget-password", [SecureController::class, 'forgetPassword'])->name("gd.forget");
+Route::post("/forget-password", [SecureController::class, 'forgetPasswordPost'])->name("gd.forgetPost");
+Route::get("/reset-password/{token}", [SecureController::class, 'resetPassword'])->name("gd.resetPassword");
+Route::post("/reset-password", [SecureController::class, 'resetPasswordPost'])->name("gd.resetPasswordPost");
+//cart
+Route::match(['get','post'],"/cart", [CartController::class, 'cart'])->name("gd.cart");
+Route::post("/cart",[CartController::class,'addcart'])->name("gd.addcart");
+Route::get("/del-cart/{key}",[CartController::class,'delcart'])->name("gd.delcart");
+//dung route group
+Route::middleware('phanquyen')->prefix("system")->group(function () {
+    Route::get("/admin", [AdminController::class, 'index'])->name("ht.admin");
+    Route::get("/login", [SecurityController::class, 'login'])->name("ht.login");
+    //routes category
+    Route::get("/categorie", [CategorieController::class, 'categorie'])->name("ht.categorie");
+    Route::match(['get', 'post'], '/categorie/add', [CategorieController::class, 'add'])->name('ht.categorieadd');
+    Route::match(['get', 'post'], '/categorie/update/{key}', [CategorieController::class, 'update'])->name('ht.categorieupdate');
+    Route::get('/categorie/delete/{key}', [CategorieController::class, 'delete'])->name('ht.categoriedelete');
+    ///routes products
+    Route::get("/products", [ProductsController::class, 'products'])->name('ht.products');
+    Route::match(['get', 'post'], '/products/add', [ProductsController::class, 'add'])->name('ht.productsadd');
+    Route::match(['get', 'post'], '/products/update/{key}', [ProductsController::class, 'update'])->name('ht.productsupdate');
+    Route::get('/products/delete/{key}', [ProductsController::class, 'delete'])->name('ht.productsdelete');
+})->middleware(Phanquyen::class);;
+
