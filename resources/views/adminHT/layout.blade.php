@@ -30,11 +30,13 @@
     <div id="main-wrapper">
 
  
-        <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="{{asset('public')}}/webadmin/assets/images/logo.png" alt="">
-                <img class="logo-compact" src="{{asset('public')}}/webadmin/assets/images/logo-text.png" alt="">
-                <img class="brand-title" src="{{asset('public')}}/webadmin/assets/images/logo-text.png" alt="">
+        <div class="nav-header ">
+            <a href="index.html" class="brand-logo d-flex justify-content-center mx-0">
+              
+                <?php foreach ($logo as $value) { ?>
+                <img class="brand-title " src="{{ asset('public/file/img/img_logo/' . $value->image) }}" alt="">
+
+                 <?php } ?>
             </a>
 
             <div class="nav-control">
@@ -145,13 +147,6 @@
                 </nav>
             </div>
         </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
-
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
@@ -164,36 +159,13 @@
                             
                         </ul>
                     </li>
-                    <li><a href="widget-basic.html" aria-expanded="false"><i class="icon "></i><span
+                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="icon "></i><span
                                 class="nav-text">Logo</span></a></li>
-                </ul>
-               
+                </ul>   
             </div>
-
-
         </div>
-      
-     
 @yield('content')
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-       
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-
-
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
     <!-- Required vendors -->
     <script src="{{asset('public')}}/webadmin/assets/vendor/global/global.min.js"></script>
     <script src="{{asset('public')}}/webadmin/assets/js/quixnav-init.js"></script>

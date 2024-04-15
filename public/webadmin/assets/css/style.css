@@ -8082,7 +8082,7 @@ a {
     font-size: 1.125rem;
     color: #fff;
     text-decoration: none;
-    padding-left: 1.25rem;
+    
     font-weight: 700; }
     [data-sidebar-style="compact"] .nav-header .brand-logo,
     [data-sidebar-style="mini"] .nav-header .brand-logo {
@@ -8096,7 +8096,7 @@ a {
         justify-content: center; } }
   .nav-header .brand-title {
     margin-left: 15px;
-    max-width: 75px; }
+    max-width: 100px; }
     [data-theme-version="dark"] .nav-header .brand-title {
       background-position: 0 120%; }
 
@@ -13769,7 +13769,9 @@ input[type="checkbox"]:checked:after {
     border: 1px solid #424D63; }
 
 #image {
-  max-width: 100%; }
+  max-width: 100%; 
+
+}
 
 .docs-options .dropdown-menu {
   padding: 1.5rem; }

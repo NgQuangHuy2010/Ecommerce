@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Interface\SecureController;
 use App\Models\Categorie;
@@ -47,5 +48,11 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::match(['get', 'post'], '/products/add', [ProductsController::class, 'add'])->name('ht.productsadd');
     Route::match(['get', 'post'], '/products/update/{key}', [ProductsController::class, 'update'])->name('ht.productsupdate');
     Route::get('/products/delete/{key}', [ProductsController::class, 'delete'])->name('ht.productsdelete');
+
+    Route::get("/logo", [LogoController::class, 'index'])->name('ht.logo');
+    Route::match(['get', 'post'], '/logo/add', [LogoController::class, 'add'])->name('ht.logo_add');
+    Route::match(['get', 'post'], '/logo/update/{key}', [LogoController::class, 'update'])->name('ht.logo_update');
+    Route::get('/logo/delete/{key}', [LogoController::class, 'delete'])->name('ht.logo_delete');
+    
 })->middleware(Phanquyen::class);;
 

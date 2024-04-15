@@ -6,14 +6,16 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Hi, welcome back!</h4>
-                            <span class="ml-1">Datatable</span>
+                            <h4>Hi, welcome !</h4>
+                            
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
+                       
+                        <a href="{{route('ht.logo_add')}}" class="btn btn-rounded btn-info"><span
+                                        class="btn-icon-left text-info"><i class="fa fa-plus color-info"></i>
+                                    </span>Tạo mới</a>
                         </ol>
                     </div>
                 </div>
@@ -24,7 +26,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Basic Datatable</h4>
+                                <h4 class="card-title">logo</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -32,23 +34,26 @@
                                         <thead>
                                             <tr>
                                                 <th>STT</th>
-                                                <th>Tên sản phẩm</th>
-                                                <th>Mô tả</th>
-                                               
                                                 <th>Hình ảnh</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          <?php    foreach ($categorie as $value){  
+                                          <?php    foreach ($logo as $value){  
     ?> 
                                             <tr>
                                                 <td>{{$value['id']}}</td>
-                                                <td>{{$value['name']}}</td>
-                                                <td>{{$value['desc']}}</td>
+                                        
                                                 
-                                                <td><img width="100" height="100" src="{{asset('public/file/img/img_category/'.$value->image)}}" alt=""></td>
-                                                <td>$320,800</td>
+                                                <td><img width="100" height="100" src="{{asset('public/file/img/img_logo/'.$value->image)}}" alt=""></td>
+                                               
+                                                <td>
+                                                <a href="{{route('ht.logo_update',$value['id'])}}" class="btn "><i
+                                                        class="fa fa-pencil" style="color: green; font-size:13px;"></i></a>
+                                                <a href="{{route('ht.logo_delete',$value['id'])}}" class="btn "><i
+                                                        class="fa fa-trash " style="color: red; font-size:13px;"></i></a>
+
+                                                </td>
                                             </tr>
                                            <?php } ?>
                                         </tbody>

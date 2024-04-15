@@ -100,30 +100,28 @@
                                         </fieldset>
                                             </div>
                                         </section>
-                                                <div class="compose-content">
-                                            <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh</h5>
-
-                                            <div  class="d-flex flex-column align-items-center justify-content-center">
-                                                <div class="fallback w-100">
-                                                    <input type="file" onchange="onUpload(this)" class="dropify" name="image" accept="image/*">
-                                                 {!!$errors->first('image', '<div class="has-error text-danger">:message</div>')!!}
-
-                                                </div>
-                                            </div>
-                                            <div id="preview" class="mt-4"></div>
-                                        </div>
                                         <div class="compose-content">
-                                            <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh chi tiết</h5>
+                                        <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh</h5>
+                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                            <div class="fallback w-100">
+                                                <input type="file" id="single-file-input" name="image" accept="image/*">
+                                                {!!$errors->first('image', '<div class="has-error text-danger">:message</div>')!!}
 
-                                            <div  class="d-flex flex-column align-items-center justify-content-center">
-                                                <div class="fallback w-100">
-                                                    <input type="file" onchange="onUpload(this)" class="dropify" name="images[]" accept="image/*">
-                                                     {!!$errors->first('images.*', '<div class="has-error text-danger">:message</div>')!!}
-
-                                                </div>
                                             </div>
-                                            <div id="preview" class="mt-4"></div>
                                         </div>
+                                        <div id="single-preview" class="mt-4"></div>
+                                    </div>
+                                        <div class="compose-content">
+                                        <h5 class="my-4"><i class="fa fa-paperclip"></i> Hình ảnh chi tiết</h5>
+                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                            <div class="fallback w-100">
+                                                <input type="file" id="multiple-file-input" name="images[]" accept="image/*" multiple>
+                                                {!!$errors->first('images.*', '<div class="has-error text-danger">:message</div>')!!}
+
+                                            </div>
+                                        </div>
+                                        <div id="multiple-preview" class="mt-4 d-flex flex-wrap "></div>
+                                    </div>
                                     <div class="text-left mt-4 mb-5">
                                         <button class="btn btn-primary btn-sl-sm mr-3" type="submit"><span
                                                 class="mr-2"><i class="fa fa-paper-plane"></i></span> Thêm</button>
@@ -139,20 +137,50 @@
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.6.2/js/dropify.min.js"></script>
-    <script>
-    function onUpload(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var preview = document.getElementById('preview');
-                preview.innerHTML = '<img src="' + e.target.result + '" alt="Uploaded Image" style="max-width: 100%; max-height: 300px;">';
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+        <script>
+    document.getElementById('single-file-input').addEventListener('change', function(event) {
+        var preview = document.getElementById('single-preview');
+        preview.innerHTML = ''; // Xóa hình ảnh hiện tại (nếu có)
 
-    // Initialize Dropify plugin
-    $('.dropify').dropify();
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = 'Uploaded Image';
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '300px';
+            preview.appendChild(img);
+        }
+
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('multiple-file-input').addEventListener('change', function(event) {
+        var preview = document.getElementById('multiple-preview');
+        preview.innerHTML = ''; // Xóa hình ảnh hiện tại (nếu có)
+
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = (function(file) {
+                return function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Uploaded Image';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
+                    img.style.margin = '5px';
+                    preview.appendChild(img);
+                };
+            })(file);
+
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
 
 @endsection

@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Providers;
+use App\Models\Logo;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+use Illuminate\Support\Facades\View;
+class AppServiceProvider extends ServiceProvider    
 {
     /**
      * Register any application services.
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrap();
+        
+        View::composer('adminHT/layout', function ($view) {
+            $view->with('logo', Logo::get());
+        });
+        View::composer('interface/layout_interface', function ($view) {
+            $view->with('logo', Logo::get());
+        });
     }
 }
