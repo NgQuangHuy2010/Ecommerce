@@ -6,7 +6,9 @@ body {
 	font-family: "Montserrat", sans-serif;
 	-webkit-font-smoothing: antialiased;
 }
-
+.hover:hover{
+	color:#36a300 !important;
+}
 h1,
 h2,
 h3,
@@ -1354,7 +1356,7 @@ ol {
 
 .categories__accordion .card-heading a:after,
 .categories__accordion .card-heading>a.active[aria-expanded=false]:after {
-	content: "";
+
 	font-size: 14px;
 	font-family: "FontAwesome";
 	color: #666666;

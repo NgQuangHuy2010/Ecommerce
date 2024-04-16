@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ashion | Template</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="{{asset('public/interface')}}/js/jquery-3.3.1.min.js"></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
@@ -24,6 +25,9 @@
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/style.css" type="text/css">
+  
+  
+
 </head>
 
 <body>
@@ -38,11 +42,15 @@
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
+           
             <li><a href="#"><span class="icon_bag_alt"></span>
-                <div class="tip">2</div>
+                <div class="tip">  
+                     @if(Session::has('cart'))
+                                    {{count(Session::get('cart'))}}
+                                    @else
+                                    0
+                                    @endif
+                                </div>
             </a></li>
         </ul>
         <div class="offcanvas__logo">
@@ -52,8 +60,12 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="{{ route('gd.login') }}">Login</a>
-            <a href="#">Register</a>
+        @if(Auth::check())
+        <a href="" class="hover">{{ Auth::user()->fullname }}</a>
+        <a href="{{ route('gd.logout') }}" class="">Logout</a>
+    @else
+        <a href="{{ route('gd.login') }}" class="">Login</a>
+    @endif
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -65,57 +77,57 @@
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
                     @foreach($logo as $logoItem)
-                    <a href=""><img src="{{ asset('public/file/img/img_logo/' . $logoItem->image) }}" alt="" class="img_logo"></a>
+                    <a href="{{route('gd.home')}}"><img src="{{ asset('public/file/img/img_logo/' . $logoItem->image) }}" alt="" class="img_logo"></a>
                     @endforeach
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li><a href="{{route('gd.product',0)}}">Shop</a></li>
-                            <li><a href="#">Pages</a>
+                        <ul class="d-flex justify-content-center">
+                            <li class=" {{ request()->routeIs('gd.home') ? 'active' : '' }}" ><a href="{{route('gd.home')}}">Trang chủ</a></li>
+                          
+                            <li  class="{{ request()->routeIs('gd.product') ? 'active' : '' }}"><a aria-current="page"  href="{{route('gd.product', 0)}}">Sản phẩm</a></li>
+                            <!-- <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.html">Product Details</a></li>
                                     <li><a href="./shop-cart.html">Shop Cart</a></li>
                                     <li><a href="./checkout.html">Checkout</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="./contact.html">Liên hệ</a></li>
                         </ul>
                     </nav>
                 </div>
-                <divs class="col-lg-3">
+                <div class="col-lg-3">
 
                     <div class="header__right">
-                        <div class="header__right__auth ">
+                    <div class="header__right__auth">
+                    <div class="header__right__auth">
                         @if(Auth::check())
-                   
-                        <a href="">{{Auth::user()->fullname}}</a>
-                        <a href="{{route('gd.logout')}}" class="dropdown-item">Logout</a>
-
+                            <a href="" class="hover">{{ Auth::user()->fullname }}</a>
+                            <a href="{{ route('gd.logout') }}" class="">Logout</a>
                         @else
-                <a href="{{ route('gd.login') }}" class="nav-item nav-link d-none d-lg-block">Login</a>
+                            <a href="{{ route('gd.login') }}" class="">Login</a>
+                        @endif  
+                    </div>
 
-                        @endif
-                           
-                           
-                        </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
+                         
+                            <li><a href="{{route('gd.cart')}}"><span class="icon_cart_alt"></span>
+                                <div class="tip">  
+                                    @if(Session::has('cart'))
+                                    {{count(Session::get('cart'))}}
+                                    @else
+                                    0
+                                    @endif
+                                 </div>
                             </a></li>
                         </ul>
                     </div>
-                </divs>
+                </div>
             </div>
             <div class="canvas__open">
                 <i class="fa fa-bars"></i>
@@ -202,7 +214,7 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="{{asset('public/interface')}}/js/jquery-3.3.1.min.js"></script>
+
 <script src="{{asset('public/interface')}}/js/bootstrap.min.js"></script>
 <script src="{{asset('public/interface')}}/js/jquery.magnific-popup.min.js"></script>
 <script src="{{asset('public/interface')}}/js/jquery-ui.min.js"></script>
@@ -212,6 +224,8 @@
 <script src="{{asset('public/interface')}}/js/owl.carousel.min.js"></script>
 <script src="{{asset('public/interface')}}/js/jquery.nicescroll.min.js"></script>
 <script src="{{asset('public/interface')}}/js/main.js"></script>
+@stack('scripts')
+
 </body>
 
 </html>
