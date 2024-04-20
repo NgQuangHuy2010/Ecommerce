@@ -124,7 +124,7 @@ $category=App\Models\Categorie::where('status',1)->get();
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="{{route('gd.details',[khongdau($item->name),$item->id])}}">{{$item->name}}</a></h6>
+                                    <h6 ><a class="hover" href="{{route('gd.details',[khongdau($item->name),$item->id])}}">{{$item->name}}</a></h6>
                                     <div class="rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -132,7 +132,7 @@ $category=App\Models\Categorie::where('status',1)->get();
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                     </div>
-                                    <div class="product__price">{{$item->price}}</div>
+                                    <div class="product__price">{{$item->price}}/G1</div>
                                 </div>
                             </div>
                         </div>

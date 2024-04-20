@@ -37,7 +37,7 @@
                                                 <th>Tên sản phẩm</th>
                                                 <th>Mô tả</th>
                                                
-                                                <th>Hình ảnh</th>
+                                                <!-- <th>Hình ảnh</th> -->
                                                 <th>Trạng thái</th>
                                                 <th></th>
                                             </tr>
@@ -50,7 +50,7 @@
                                                 <td>{{$value['name']}}</td>
                                                 <td>{{$value['desc']}}</td>
                                                 
-                                                <td><img width="100" height="100" src="{{asset('public/file/img/img_category/'.$value->image)}}" alt=""></td>
+                                                <!-- <td><img width="100" height="100" src="{{asset('public/file/img/img_category/'.$value->image)}}" alt=""></td> -->
                                                 <td>
                                                     @if($value->status == 1)
                                                 <span

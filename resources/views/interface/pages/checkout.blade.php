@@ -203,4 +203,5 @@ if(Session::get("cart")){
     <?php }else{
     echo "<p align='center'>khong the thanh toan do gio hang trong</p>";
 } ?>
+
 @endsection

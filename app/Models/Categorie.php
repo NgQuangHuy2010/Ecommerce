@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Categorie extends Model
 {
     protected $table = "categorie";
-    protected $fillable = ["name", "keyword", "desc","image", "level","status"];
+    protected $fillable = ["name", "keyword", "desc","image","status"];
     protected $primarykey = "id";
-    public $timestamps = true;
+    public $timestamps = false;
     public function products()
     {
         return $this->hasMany(Products::class, 'idcat', 'id');

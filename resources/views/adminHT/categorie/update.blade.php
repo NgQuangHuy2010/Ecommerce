@@ -49,15 +49,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 mb-4">
-                                                    <div class="form-group">
-                                                   <h5>     <label class="text-label">Cấp bậc</label></h5>
-                                                        <div class="input-group">
-                                                            <input type="text"  class="form-control"  value="{{old('level',isset($display ->level)?$display ->level:null)}}" name="level">
-                                                        {!!$errors->first('level', '<div class="has-error text-danger">:message</div>')!!}
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-lg-12 mb-4">
                                                 <fieldset class="form-group">
                                             <div class="row">
@@ -81,7 +73,7 @@
                                         </fieldset>
                                             </div>
                                         </section>
-                                                <div class="compose-content">
+                                                <!-- <divs class="compose-content">
                                             <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh</h5>
 
                                             <div  class="d-flex flex-column align-items-center justify-content-center">
@@ -90,7 +82,7 @@
                                                 </div>
                                             </div>
                                             <div id="preview" class="mt-4"></div>
-                                        </div>
+                                        </divs> -->
                                     <div class="text-left mt-4 mb-5">
                                         <button class="btn btn-primary btn-sl-sm mr-3" type="submit"><span
                                                 class="mr-2"><i class="fa fa-paper-plane"></i></span> Thêm</button>

@@ -17,7 +17,7 @@
             </div>
             <div class="col-lg-8 col-md-8">
                 <ul class="filter__controls">
-                    <li class="active" data-filter="*">All</li>
+                   <a href="{{route('gd.product', $item->id)}}"> <li class="active" data-filter="*">All</li></a>
                 </ul>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix women">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="{{asset('public/file/')}}/img/img_product/{{$product->image}}">
-                            <div class="label new">New</div>
+                            <!-- <div class="label new">New</div> -->
                             <ul class="product__hover">
                                
                                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>

@@ -6,9 +6,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="#">Women’s </a>
-                        <span>Essential structured blazer</span>
+                        <a href="{{route('gd.home')}}"><i class="fa fa-home"></i> Trang chủ</a>
+                        <a href="{{route('gd.product',0)}}">Sản phẩm </a>
+                        <span>Chỉ tiết sản phẩm</span>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                                     <input name="soluong" type="text" value="1">
                                 </div>
                             </div>
-                            <button id="addcart"class="cart-btn btn"><span class="icon_bag_alt"></span> Add to cart</button>
+                            <button id="addcart"class="cart-btn btn"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</button>
                            
                             <ul>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
