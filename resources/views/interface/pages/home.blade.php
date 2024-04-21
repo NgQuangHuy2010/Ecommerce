@@ -29,11 +29,11 @@
                             <!-- <div class="label new">New</div> -->
                             <ul class="product__hover">
                                
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6 class="mb-3"><a href="#">{{$product->name}}</a></h6>
+                            <h6 class="mb-3"><a href="{{route('gd.details',[khongdau($product->name),$product->id])}}">{{$product->name}}</a></h6>
                             <div class="rating">
                                 ssss
                             </div>

@@ -18,7 +18,9 @@ if (Session::get("cart")) {
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                   
+                <?php foreach (Session::get("cart") as $item) {
+              
+                    ?>
                     <tr>
                         <td class="align-middle"><img src="img/product-5.jpg" alt="" style="width: 50px;"> {{$item['name']}}</td>
                         <td class="align-middle">{{$item['price']}}</td>
@@ -29,27 +31,7 @@ if (Session::get("cart")) {
                                
                             </div>
                         </td>
-                        <?php
-    $Subtotal = 0;
-    $total = 0;
-$total_price_all_products = 0;
-
-    foreach (Session::get("cart") as $item) {?>
-    <?php
-    // Loại bỏ dấu chấm và dấu phẩy từ giá
-    $cleaned_price = str_replace(['.', ','], '', $item['price']);
-
-    // Chuyển đổi giá thành số nguyên
-    $price_integer = intval($cleaned_price);
-
-    // Tính giá cuối cùng của mỗi sản phẩm
-    $total_price_per_item = $price_integer * $item['soluong'];
-
-    // Cộng giá của sản phẩm này vào tổng giá của tất cả các sản phẩm
-    $total_price_all_products += $total_price_per_item;
-    ?>
-                       <td class="align-middle"></td>
-
+                       <td class="align-middle">{{$item['soluong']*$item['price']}}</td>
                         <td class="align-middle">
                             <a href="{{route('gd.delcart', $item['id'])}}" class="btn btn-sm btn-cart"><i class="fa fa-times"></i></a></td>
                     </tr>
@@ -58,6 +40,15 @@ $total_price_all_products = 0;
                 </tbody>
             </table>
         </div>
+        <?php 
+$totalAmount = 0; // Khởi tạo biến tổng số tiền
+
+foreach (Session::get("cart") as $item) {
+    // Tính tổng số tiền cho từng sản phẩm và cộng vào biến tổng số tiền
+    $totalAmount += $item['soluong'] * $item['price'];
+}
+?>
+
         <div class="col-lg-4">
             <form class="mb-5" action="">
                 <div class="input-group">
@@ -74,17 +65,17 @@ $total_price_all_products = 0;
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 pt-1">
                         <h6 class="font-weight-medium">Subtotal</h6>
-                        <h6 class="font-weight-medium"></h6>
+                        <h6 class="font-weight-medium"> {{$totalAmount}}</h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$10</h6>
+                        <h6 class="font-weight-medium">$0</h6>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">$160</h5>
+                        <h5 class="font-weight-bold">{{$totalAmount}}</h5>
                     </div>
                     <a href="{{route('gd.checkout')}}" class="btn btn-block btn-cart my-3 py-3">Proceed To Checkout</a>
                 </div>
