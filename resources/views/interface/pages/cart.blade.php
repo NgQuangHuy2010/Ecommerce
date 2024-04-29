@@ -85,7 +85,7 @@ foreach (Session::get("cart") as $item) {
 </div>
 <!-- Cart End -->
 <?php } else {
-    echo "<p align='center'>gio hang trong</p>";
+    echo "<p  align='center'>Giỏ hàng trống !</p>";
 } ?>
 @endsection
 

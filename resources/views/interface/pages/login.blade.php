@@ -18,7 +18,7 @@
                         <img src="{{asset('public/interface')}}/img/logofarm.png">
                     </div> -->
                     <div class="login-title text-center">
-                        <h4>Log In</h4>
+                        <h4>Đăng nhập</h4>
                     </div>
                     <div class="login-form mt-4">
                         <form action="{{route('gd.login')}}" method="post" >
@@ -31,7 +31,7 @@
 
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <input type="password" name="password" class="form-control"  id="pass" placeholder="Password">
+                                    <input type="password" name="password" class="form-control"  id="pass" placeholder="Mật khẩu">
                                 {!!$errors->first('password','<div class="has-error text-danger">:message</div>')!!}
 
                                 </div>
@@ -41,19 +41,19 @@
                                     <div class="form-check">
                                         <input name="remember" class="form-check-input" type="checkbox" value=1 id="updatecheck1">
                                         <label class="form-check-label" for="updatecheck1">
-                                            <small >Remember me</small>
-                                            <small><a class="pl-2" href="{{route('gd.forget')}}">Reset Password </a> </small>
+                                            <small >Nhớ mật khẩu</small>
+                                            <small><a class="pl-2" href="{{route('gd.forget')}}">Quên mật khẩu </a> </small>
                                         </label>
 
                                     </div>
 
                                 </div>
-                                <a href="{{route('gd.register')}}">Register</a>
+                                <a href="{{route('gd.register')}}">Đăng ký</a>
                             </div>
 
                   
                             <div class="form-row">
-                                <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                             </div>
                       
                         </form>

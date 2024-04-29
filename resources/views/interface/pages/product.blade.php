@@ -132,7 +132,9 @@ $category=App\Models\Categorie::where('status',1)->get();
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                     </div>
-                                    <div class="product__price">{{$item->price}}/G1</div>
+                                    <div class="product__price">{{ number_format($item->price, 0, ',', ',') }} VNĐ/G1</div>
+
+
                                 </div>
                             </div>
                         </div>

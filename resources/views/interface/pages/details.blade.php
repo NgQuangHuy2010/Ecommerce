@@ -1,5 +1,8 @@
 @extends ('interface/layout_interface')
 @section('content')
+<style>
+   
+</style>
         <!-- Breadcrumb Begin -->
         <div class="breadcrumb-option">
         <div class="container">
@@ -7,7 +10,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="{{route('gd.home')}}"><i class="fa fa-home"></i> Trang chủ</a>
-                        <a href="{{route('gd.product',0)}}">Sản phẩm </a>
+                        <a href="{{route('gd.product', 0)}}">Sản phẩm </a>
                         <span>Chỉ tiết sản phẩm</span>
                     </div>
                 </div>
@@ -55,7 +58,7 @@
                             <i class="fa fa-star"></i>
                             <span>( 138 reviews )</span>
                         </div>
-                        <div class="product__details__price">{{$details->price}} </div>
+                        <div class="product__details__price">{{ number_format($details->price, 0, ',', ',') }} VNĐ/G1 </div>
                         <p>{!!$details->content!!}</p>
                         <div class="product__details__button">
                             <div class="quantity">
@@ -64,70 +67,12 @@
                                     <input name="soluong" type="text" value="1">
                                 </div>
                             </div>
-                            <button id="addcart"class="cart-btn btn"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</button>
+                            <button onclick="momodal()" id="open-modal"class="cart-btn btn"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</button>
                            
-                            <ul>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                            </ul>
+                           
                         </div>
                         
-                        <div class="product__details__widget">
-                            <ul>
-                                <li>
-                                    <span>Availability:</span>
-                                    <div class="stock__checkbox">
-                                        <label for="stockin">
-                                            In Stock
-                                            <input type="checkbox" id="stockin">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available color:</span>
-                                    <div class="color__checkbox">
-                                        <label for="red">
-                                            <input type="radio" name="color__radio" id="red" checked>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label for="black">
-                                            <input type="radio" name="color__radio" id="black">
-                                            <span class="checkmark black-bg"></span>
-                                        </label>
-                                        <label for="grey">
-                                            <input type="radio" name="color__radio" id="grey">
-                                            <span class="checkmark grey-bg"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available size:</span>
-                                    <div class="size__btn">
-                                        <label for="xs-btn" class="active">
-                                            <input type="radio" id="xs-btn">
-                                            xs
-                                        </label>
-                                        <label for="s-btn">
-                                            <input type="radio" id="s-btn">
-                                            s
-                                        </label>
-                                        <label for="m-btn">
-                                            <input type="radio" id="m-btn">
-                                            m
-                                        </label>
-                                        <label for="l-btn">
-                                            <input type="radio" id="l-btn">
-                                            l
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Promotions:</span>
-                                    <p>Free shipping</p>
-                                </li>
-                            </ul>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -220,33 +165,65 @@
             </div>
         </div>
     </section>
-    <!-- Product Details Section End -->
-    <script>
-                $(document).ready(function(){
-                      $('#addcart').click(function(){
-                            soluong = $("input[name='soluong']").val();
-                            $.ajax({
-                                url: "{{route('gd.addcart')}}",
-                                type:'post',
-                                 data: { 
-                                    'id':{{$details->id}},
-                                      'soluong': soluong,
-                                },
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                },
-                                dataType: 'json',
-                                success: function(message){
-                                    if(message){
-                                        alert("Thêm giỏ hàng thành công!");
-                                        
-                                    }else{
-                                        alert("Thêm giỏ hàng thất bại!");
-                                        location.reload();
-                                    }
-                                }
-                            });
-                      });
-                    });
-                </script>
+    
+
+        <div class="nenmodal" id="nenmodal-1">
+
+        <div class="nenmodal2"></div>
+        <div class="ndmodal">
+        <div class="closemodal"><button onclick="closeModal()">×</button></div>
+
+            <div class="titlemodal">Thông báo</div>
+            <div class="modal-content" id="modal-content">
+                <!-- Nội dung thông báo sẽ được thay thế bằng Ajax -->
+            </div>
+        </div>
+    </div>
+
+    <!-- kết thúc html modal -->
+
+    <!-- Nút Hiển thị Modal -->
+    <!-- <button onclick="momodal()">Hiển thị</button> -->
+
+        <!-- Product Details Section End -->
+        <script>
+            $(document).ready(function(){
+        $('#open-modal').click(function(){ // Sử dụng id mới ở đây
+            var soluong = $("input[name='soluong']").val();
+            $.ajax({
+                url: "{{route('gd.addcart')}}",
+                type:'post',
+                data: { 
+                    'id':{{$details->id}},
+                    'soluong': soluong,
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: 'json',
+                success: function(message){
+                    var modalContent = $('#modal-content');
+                    if(message){
+                        modalContent.html("<p>Thêm vào giỏ hàng thành công!</p>");
+                    }else{
+                        modalContent.html("<p>Thêm giỏ hàng thất bại!</p>");
+                    }
+                    momodal(); // Hiển thị modal
+                }
+            });
+        });
+
+        function momodal() {
+            document.getElementById("nenmodal-1").classList.toggle("active");
+        }
+    
+
+    });
+
+    function closeModal() {
+    var modal = document.getElementById("nenmodal-1");
+    modal.classList.remove("active"); // Loại bỏ class 'active' để ẩn modal
+    location.reload();
+}
+                    </script>
 @endsection

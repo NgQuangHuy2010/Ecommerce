@@ -17,14 +17,15 @@
             </div>
             <div class="col-lg-8 col-md-8">
                 <ul class="filter__controls">
-                   <a href="{{route('gd.product', $item->id)}}"> <li class="active" data-filter="*">All</li></a>
+                   <a href="{{route('gd.product', $item->id)}}"> <li class="active" data-filter="*">Tất cả</li></a>
                 </ul>
             </div>
         </div>
         <div class="row property__gallery">
             @foreach($item->products as $product)
-                <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                <div class="col-xl-3 col-md-4 col-sm-6  mix women">
                     <div class="product__item">
+                      
                         <div class="product__item__pic set-bg" data-setbg="{{asset('public/file/')}}/img/img_product/{{$product->image}}">
                             <!-- <div class="label new">New</div> -->
                             <ul class="product__hover">
@@ -35,9 +36,13 @@
                         <div class="product__item__text">
                             <h6 class="mb-3"><a href="{{route('gd.details',[khongdau($product->name),$product->id])}}">{{$product->name}}</a></h6>
                             <div class="rating">
-                                ssss
+                            <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
                             </div>
-                            <div class="product__price">${{$product->price}}</div>
+                            <div class="product__price">{{ number_format($product->price, 0, ',', ',') }} VNĐ/G1</div>
                         </div>
                     </div>
                 </div>
