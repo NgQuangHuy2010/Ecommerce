@@ -155,12 +155,14 @@
                                 class="icon "></i><span class="nav-text">Danh sách sản phẩm</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('ht.categorie')}}">Danh mục</a></li>
-                            <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>
-                            
+                            <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>  
                         </ul>
                     </li>
                     <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="icon "></i><span
-                                class="nav-text">Logo</span></a></li>
+                    class="nav-text">Logo</span></a></li>
+
+                    <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="icon "></i><span
+                     class="nav-text">Banner</span></a></li>
                 </ul>   
             </div>
         </div>

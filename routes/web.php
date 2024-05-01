@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Interface\SecureController;
@@ -48,11 +49,18 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::match(['get', 'post'], '/products/add', [ProductsController::class, 'add'])->name('ht.productsadd');
     Route::match(['get', 'post'], '/products/update/{key}', [ProductsController::class, 'update'])->name('ht.productsupdate');
     Route::get('/products/delete/{key}', [ProductsController::class, 'delete'])->name('ht.productsdelete');
-
+//logo
     Route::get("/logo", [LogoController::class, 'index'])->name('ht.logo');
     Route::match(['get', 'post'], '/logo/add', [LogoController::class, 'add'])->name('ht.logo_add');
     Route::match(['get', 'post'], '/logo/update/{key}', [LogoController::class, 'update'])->name('ht.logo_update');
     Route::get('/logo/delete/{key}', [LogoController::class, 'delete'])->name('ht.logo_delete');
-    
+  
+    //banner
+    Route::get("/banner", [BannerController::class, 'index'])->name('ht.banner');
+    Route::match(['get', 'post'], '/banner/add', [BannerController::class, 'add'])->name('ht.banner_add');
+    Route::match(['get', 'post'], '/banner/update/{key}', [BannerController::class, 'update'])->name('ht.banner_update');
+    Route::get('/banner/delete/{key}', [BannerController::class, 'delete'])->name('ht.banner_delete');
+  
+
 })->middleware(Phanquyen::class);;
 

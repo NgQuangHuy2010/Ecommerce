@@ -97,6 +97,8 @@
                             </li> -->
                             <li><a href="./blog.html">Blog</a></li>
                             <li><a href="./contact.html">Liên hệ</a></li>
+                         
+
                         </ul>
                     </nav>
                 </div>
