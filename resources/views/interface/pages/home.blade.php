@@ -6,40 +6,43 @@
 <!-- Banner Section Begin -->
 
 
-<section>
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="{{asset('public')}}/interface/img/banner/banner_coll_1.webp" alt="First slide">
+<section style="">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            @foreach ($banner as $index => $bannerr)
+            <div class="carousel-item active">
+                <img class="d-block w-100 banner"  src="{{ asset('public/file/img/img_banner/' . $bannerr->image_first) }}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 banner"  src="{{ asset('public/file/img/img_banner/' . $bannerr->image_second) }}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 banner"  src="{{ asset('public/file/img/img_banner/' . $bannerr->image_third) }}" alt="Third slide">
+            </div>
+            @endforeach
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="{{asset('public')}}/interface/img/banner/banner_coll_1.webp" alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="{{asset('public')}}/interface/img/banner/banner_coll_1.webp" alt="Third slide">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
 </section>
+
 <!-- Banner Section End -->
 
 
 
     <!-- Categories Section Begin -->
-    <section class="product spad">
+    <section class="product spad mt-2">
     <div class="container">
         @foreach($category as $item)
         <div class="row">

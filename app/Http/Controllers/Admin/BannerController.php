@@ -48,36 +48,35 @@ class BannerController extends Controller
         $olddata["display"] = Banner::find($id);
         if ($request->isMethod('POST')) {
             $this->validate($request, [
-                'image_first' => 'required|mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
-                'image_second' => 'required|mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
-                'image_third' => 'required|mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
-
+                'image_first' => 'mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
+                'image_second' => 'mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
+                'image_third' => 'mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
+    
             ]);
+    
             $edit = Banner::find($id);
-            $images = ['image_first', 'image_second', 'image_third'];    //tạo mảng chứa 3 trường name trong form html
-            foreach ($images as $imageField) {  //dùng vòng lặp duyệt mảng
-                if ($request->hasFile($imageField)) {  //kiểm tra xem đúng tên trường từ form gửi lên http ko
+            $images = ['image_first', 'image_second', 'image_third'];
+            foreach ($images as $imageField) {
+                if ($request->hasFile($imageField)) {
                     $img = $request->file($imageField);
                     $nameimage = time() . "_" . $img->getClientOriginalName();
-
+    
                     @unlink('public/file/img/img_banner/' . $olddata["display"]->$imageField);
-
-                    // Di chuyển tệp vào thư mục public
+    
                     $img->move('public/file/img/img_banner/', $nameimage);
-                    // Gán tên hình ảnh vào trường tương ứng
                     $edit->{$imageField} = $nameimage;
                 } else {
-                    $edit->$imageField = $olddata["display"]->$imageField;
-
+                    // Nếu không có file hình mới, sử dụng hình cũ
+                    $edit->{$imageField} = $olddata["display"]->{$imageField};
                 }
             }
             $edit->save();
-            toastr()->success(' Cập nhật thành công!');
+            toastr()->success('Cập nhật thành công!');
             return redirect()->route("ht.banner");
         }
         return view('adminHT/banner/update_banner', $olddata);
-
     }
+    
 
     public function delete($id)
     {

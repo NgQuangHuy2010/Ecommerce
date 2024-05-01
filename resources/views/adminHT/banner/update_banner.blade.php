@@ -4,12 +4,13 @@
 <div class="content-body">
             <div class="container-fluid">
                 <div class="row page-titles mx-0">
-                    <diveds class="col-sm-6 p-md-0">
+                    <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Cập nhật Banner</h4>
                            
                         </div>
-                    </diveds>
+                    </div>
+
                    
                 </div>
                 <!-- row -->
@@ -20,7 +21,6 @@
                             <div class="card-body">
                                 <form action="{{route('ht.banner_update',$display->id)}}" method="post" enctype="multipart/form-data" id="step-form-horizontal" class="step-form-horizontal">
                                 @csrf    
-
                                                 <div class="compose-content">
                                             <h5 class="mb-4"><i class="fa fa-paperclip"></i> Hình ảnh thứ nhất</h5>
                                             <div  class="d-flex flex-column align-items-center justify-content-center">
