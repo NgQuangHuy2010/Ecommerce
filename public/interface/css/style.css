@@ -566,7 +566,7 @@ ol {
 -----------------------*/
 
 .banner {
-	max-height: 500px;
+	max-height: 600px;
 }
 
 .banner__text span {
@@ -2106,7 +2106,9 @@ ol {
 .nav-item .nav-link.active {
 	color: #111111;
 }
-
+li .active{
+	color: #54b808 !important;
+}
 .tab-content .tab-pane h6 {
 	color: #666666;
 	font-weight: 600;

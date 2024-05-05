@@ -26,16 +26,16 @@ $category = App\Models\Categorie::where('status', 1)->get();
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="shop__sidebar">
-                        <div class="sidebar__categories">
+                        <divs class="sidebar__categories">
                             <div class="section-title">
-                                <h4>Categories</h4>
+                                <h4>Danh mục sản phẩm</h4>
                             </div>
                             <div class="categories__accordion">
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-heading  ">
                                         <?php foreach ($category as $item) { ?>
-                                            <a class="my-2 hover" href="{{route('gd.product', $item->id)}}" >{{$item->name}}</a>
+                                          <a class="mb-2 hover" href="{{route('gd.product', $item->id)}}" >{{$item->name}}</a>
                                             <?php } ?>
                                         </div>
                                    
@@ -44,7 +44,7 @@ $category = App\Models\Categorie::where('status', 1)->get();
                                   
                                 </div>
                             </div>
-                        </div>
+                        </divs>
                         <!-- <div class="sidebar__filter">
                             <div class="section-title">
                                 <h4>Shop by price</h4>
@@ -66,7 +66,7 @@ $category = App\Models\Categorie::where('status', 1)->get();
 
                             <div class="sidebar__categories">
                             <div class="section-title">
-                                <h4>Sắp xếp theo</h4>
+                                <h4 class="mt-4">Sắp xếp theo</h4>
                             </div>
                             <div class="categories__accordion">
                                 <div class="accordion" id="accordionExample">
@@ -87,7 +87,7 @@ $category = App\Models\Categorie::where('status', 1)->get();
 
 
 
-                        <div class="sidebar__sizes">
+                        <!-- <div class="sidebar__sizes">
                             <div class="section-title">
                                 <h4>Shop by size</h4>
                             </div>
@@ -133,7 +133,7 @@ $category = App\Models\Categorie::where('status', 1)->get();
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                     
                     </div>
                 </div>

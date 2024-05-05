@@ -18,6 +18,7 @@
     rel="stylesheet">
 
     <!-- Css Styles -->
+ <link rel="stylesheet" href="{{asset('public/interface')}}/css/animate.css" type="text/css">
 
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/font-awesome.min.css" type="text/css">
@@ -27,6 +28,7 @@
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/style.css" type="text/css">
+
   
   
 
@@ -43,7 +45,7 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
-            <li><span class="icon_search search-switch"></span></li>
+            <!-- <li><span class="icon_search search-switch"></span></li> -->
            
             <li><a href="#"><span class="icon_bag_alt"></span>
                 <div class="tip">  
@@ -76,7 +78,7 @@
     <header class="header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-3 col-lg-2">
+                <div class="col-lg-3 col-lg-2">
                     <div class="header__logo">
                     @foreach($logo as $logoItem)
                     <a href="{{route('gd.home')}}"><img src="{{ asset('public/file/img/img_logo/' . $logoItem->image) }}" alt="" class="img_logo"></a>
@@ -85,7 +87,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
-                        <ul class="d-flex justify-content-center">
+                        <ul class="d-flex justify-content-center align-item-center">
                             <li class=" {{ request()->routeIs('gd.home') ? 'active' : '' }}" ><a href="{{route('gd.home')}}">Trang chủ</a></li>
                           
                             <li  class="{{ request()->routeIs('gd.product') ? 'active' : '' }}"><a aria-current="page"  href="{{route('gd.product', 0)}}">Sản phẩm</a></li>
@@ -97,9 +99,15 @@
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li> -->
-                            <li><a href="./blog.html">Blog</a></li>
+                            <!-- <li><a href="./blog.html">Blog</a></li> -->
                             <li><a href="./contact.html">Liên hệ</a></li>
-                         
+                            <li class="ml-5 ">
+                         <form class="d-flex">
+                            <input  class="form-control me-2"  placeholder="Tìm kiếm sản phẩm..." >
+                            <button class="btn btn-success " type="submit"><span class="icon_search mr-2"></span>Tìm&nbsp;kiếm</button>
+                            </form>
+
+                            </li>
 
                         </ul>
                     </nav>
@@ -118,8 +126,8 @@
                     </div>
 
                         <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                         
+                            <!-- <li><span class="icon_search search-switch"></span></li> -->
+                  
                             <li><a href="{{route('gd.cart')}}"><span class="icon_cart_alt"></span>
                                 <div class="tip">  
                                     @if(Session::has('cart'))
@@ -218,7 +226,10 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-
+<script src="{{asset('public/interface')}}/js/wow.min.js"></script>
+<script>
+new WOW().init();
+</script>
 <script src="{{asset('public/interface')}}/js/bootstrap.min.js"></script>
 <script src="{{asset('public/interface')}}/js/jquery.magnific-popup.min.js"></script>
 <script src="{{asset('public/interface')}}/js/jquery-ui.min.js"></script>
@@ -228,6 +239,8 @@
 <script src="{{asset('public/interface')}}/js/owl.carousel.min.js"></script>
 <script src="{{asset('public/interface')}}/js/jquery.nicescroll.min.js"></script>
 <script src="{{asset('public/interface')}}/js/main.js"></script>
+
+
 @stack('scripts')
 
 </body>
