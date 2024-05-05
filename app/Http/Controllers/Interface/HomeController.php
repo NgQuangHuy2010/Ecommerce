@@ -23,25 +23,7 @@ class HomeController extends Controller
 
 
 
-    public function product($id = null)
-    {
-        try {
-            if ($id == 0) {
-                $data['loadproduct'] = Products::all();
-            } else {
-                $data['loadproduct'] = Products::where('idcat', $id)->get();
-            }
-
-            // Chuyển đổi chuỗi JSON thành mảng cho trường images
-            $data['loadproduct']->each(function ($product) {
-                $product->images = json_decode($product->images, true);
-            });
-
-            return view("interface/pages/product", $data);
-        } catch (\Throwable $th) {
-            return redirect()->route('gd.home');
-        }
-    }
+   
 
 
 

@@ -2,9 +2,10 @@
 @section('content')
 
 <?php 
-$category=App\Models\Categorie::where('status',1)->get();
+$category = App\Models\Categorie::where('status', 1)->get();
 
 ?>
+
 <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -33,8 +34,8 @@ $category=App\Models\Categorie::where('status',1)->get();
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-heading  ">
-                                        <?php foreach ($category as $item ) { ?>
-                                            <a class="my-2 hover" href="{{route('gd.product',$item->id)}}" >{{$item->name}}</a>
+                                        <?php foreach ($category as $item) { ?>
+                                            <a class="my-2 hover" href="{{route('gd.product', $item->id)}}" >{{$item->name}}</a>
                                             <?php } ?>
                                         </div>
                                    
@@ -61,6 +62,31 @@ $category=App\Models\Categorie::where('status',1)->get();
                             </div>
                             <a href="#">Filter</a>
                         </div> -->
+      
+
+                            <div class="sidebar__categories">
+                            <div class="section-title">
+                                <h4>Sắp xếp theo</h4>
+                            </div>
+                            <div class="categories__accordion">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="card-heading  ">
+                                        <form action="{{ route('product.sort', ['type' => 'asc']) }}" method="GET">
+                                       <button class="mb-2" type="submit"> Giá tăng dần</button>
+                                        </form>
+
+                                        <form action="{{ route('product.sort', ['type' => 'desc']) }}" method="GET">
+                                        <button type="submit"> Giá giảm dần</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                         <div class="sidebar__sizes">
                             <div class="section-title">
                                 <h4>Shop by size</h4>
@@ -113,7 +139,7 @@ $category=App\Models\Categorie::where('status',1)->get();
                 </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="row">
-                    <?php foreach($loadproduct as $item){ ?>  
+                    <?php foreach ($loadproduct as $item) { ?>  
                         <div class="col-lg-4 col-md-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="{{asset('public/file/')}}/img/img_product/{{$item->image}}">
@@ -124,7 +150,7 @@ $category=App\Models\Categorie::where('status',1)->get();
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6 ><a class="hover" href="{{route('gd.details',[khongdau($item->name),$item->id])}}">{{$item->name}}</a></h6>
+                                    <h6 ><a class="hover" href="{{route('gd.details', [khongdau($item->name), $item->id])}}">{{$item->name}}</a></h6>
                                     <div class="rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -139,13 +165,10 @@ $category=App\Models\Categorie::where('status',1)->get();
                             </div>
                         </div>
                         <?php } ?>
-                        <div class="col-lg-12 text-center">
-                            <div class="pagination__option">
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
-                            </div>
+                        <div class="col-lg-12 d-flex justify-content-center">
+                            
+                            {{ $loadproduct->links() }}
+                           
                         </div>
                     </div>
                 </div>

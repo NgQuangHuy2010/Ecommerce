@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Interface\SecureController;
+use App\Http\Controllers\Interface\User_ProductsController;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
@@ -16,11 +17,12 @@ use App\Http\Middleware\Phanquyen;
 Route::get("/", [HomeController::class, 'index'])->name("gd.home");
 
 Route::get("/details/{name}/{key}", [HomeController::class, 'details'])->name("gd.details");
-Route::get("/product/{key}", [HomeController::class, 'product'])->name("gd.product");
 Route::get("/search/{key?}", [HomeController::class, 'search'])->name("gd.search"); //{key?} ? la nhap gi cung dc
 Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_result");
 Route::match(['get','post'],"/check-out", [CartController::class, 'checkout'])->name("gd.checkout"); 
-
+//product
+Route::get("/product/{key}", [User_ProductsController::class, 'product'])->name("gd.product");
+Route::get('/products/sort/{type}', [User_ProductsController::class, 'sort'])->name('product.sort');
 //login
 Route::match(['get','post'],"/login", [SecureController::class, 'login'])->name("gd.login");
 Route::get("/logout", [SecureController::class, 'logout'])->name("gd.logout");

@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Farm</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public')}}/file/img/img_logo/1713069730_share_fb_home.png ">
+
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{asset('public/interface')}}/js/jquery-3.3.1.min.js"></script>
     <!-- Google Font -->
