@@ -50,7 +50,7 @@ class HomeController extends Controller
             ->orWhere('price', 'LIKE', "%{$search}%")
             ->orWhere('desc', 'LIKE', "%{$search}%")
             ->orWhere('content', 'LIKE', "%{$search}%")
-            ->get();
+            ->paginate(6);
         if ($data['search']->count() > 0) {
             return view("interface/pages/search", $data);
         } else {

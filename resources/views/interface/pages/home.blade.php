@@ -4,7 +4,7 @@
 //$category=App\Models\Categorie::where('status',1)->get();
 ?>
 <!-- Banner Section Begin -->
- <!-- Thêm các thuộc tính của thư viện wow.js -->
+<!-- Thêm các thuộc tính của thư viện wow.js -->
 
 
 <section style="">
@@ -16,15 +16,18 @@
         </ol>
         <div class="carousel-inner">
             @foreach ($banner as $index => $bannerr)
-            <div class="carousel-item active">
-                <img class="d-block w-100 banner"  src="{{ asset('public/file/img/img_banner/' . $bannerr->image_first) }}" alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100 banner"  src="{{ asset('public/file/img/img_banner/' . $bannerr->image_second) }}" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100 banner"  src="{{ asset('public/file/img/img_banner/' . $bannerr->image_third) }}" alt="Third slide">
-            </div>
+                <div class="carousel-item active">
+                    <img class="d-block w-100 banner"
+                        src="{{ asset('public/file/img/img_banner/' . $bannerr->image_first) }}" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 banner"
+                        src="{{ asset('public/file/img/img_banner/' . $bannerr->image_second) }}" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 banner"
+                        src="{{ asset('public/file/img/img_banner/' . $bannerr->image_third) }}" alt="Third slide">
+                </div>
             @endforeach
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -41,8 +44,8 @@
 <!-- Banner Section End -->
 
 <!-- Services Section Begin -->
-<section class="services spad">
-    <div class="container">
+<section class="services spad bg-light">
+    <div class="container ">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="services__item">
@@ -76,49 +79,54 @@
     </div>
 </section>
 <!-- Services Section End -->
-    <!-- Categories Section Begin -->
-    <section class="product spad mt-2 "  >
-    <div class="container "  >
+<!-- Categories Section Begin -->
+<section class="product spad  bg-light">
+    <div class="container ">
         @foreach($category as $item)
-        <div class="row " >
-            <div class="col-lg-4 col-md-4 "  >
-                <div class="section-title">
-                    <h4  class="wow fadeInLeft"  data-wow-delay="0.5s" >{{$item->name}}</h4>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8">
-                <ul class="filter__controls">
-                   <a href="{{route('gd.product', $item->id)}}"> <li class="active wow fadeInLeft " data-wow-delay="0.5s" data-filter="*">Tất cả</li></a>
-                </ul>
-            </div>
-        </div>
-        <div class="row property__gallery">
-            @foreach($item->products as $product)
-                <div class="col-xl-3 col-md-4 col-sm-6  mix women  wow fadeInRight"  data-wow-delay="0.5s">
-                    <div class="product__item">
-                      
-                        <div class="product__item__pic set-bg" data-setbg="{{asset('public/file/')}}/img/img_product/{{$product->image}}">
-                            <!-- <div class="label new">New</div> -->
-                            <ul class="product__hover">
-                               
-                                
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6 class="mb-3"><a href="{{route('gd.details',[khongdau($product->name),$product->id])}}">{{$product->name}}</a></h6>
-                            <div class="rating">
-                            <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">{{ number_format($product->price, 0, ',', ',') }} VNĐ/G1</div>
-                        </div>
+            <div class="row ">
+                <div class="col-lg-4 col-md-4 ">
+                    <div class="section-title">
+                        <h4 class="wow fadeInLeft" data-wow-delay="0.5s">{{$item->name}}</h4>
                     </div>
                 </div>
-            @endforeach
+                <div class="col-lg-8 col-md-8">
+                    <ul class="filter__controls">
+                        <a href="{{route('gd.product', $item->id)}}">
+                            <li class="active wow fadeInLeft " data-wow-delay="0.5s" data-filter="*">Tất cả</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <div class="row property__gallery ">
+                @foreach($item->products as $product)
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-5 mix women wow fadeInRight bg-white mr-3 rounded-lg cart-product" data-wow-delay="0.5s">
+    <div class="product__item">
+        <div class="product__item__pic set-bg" data-setbg="{{asset('public/file/')}}/img/img_product/{{$product->image}}">
+            <!-- <div class="label new">New</div> -->
+            <ul class="product__hover"></ul>
         </div>
+        <div class="product__item__text">
+            <h6 class="mb-3">
+                <a href="{{route('gd.details', [khongdau($product->name), $product->id])}}">{{$product->name}}</a>
+            </h6>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <div class="product__price">{{ number_format($product->price, 0, ',', ',') }} VNĐ/G1</div>
+        </div>
+        <div class="text-center mt-3 border border-success rounded-lg btn-hover-cart">
+        <button  class="btn btn-sm text-danger "><span class="fa fa-cart-plus " style="color:red;"></span> Thêm vào giỏ</button>
+
+        </div>
+    </div>
+</div>
+
+                @endforeach
+            </div>
         @endforeach
     </div>
 </section>
@@ -133,10 +141,10 @@
 <section class="trend spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6 row " >
+            <div class="col-lg-4 col-md-4 col-sm-6 row ">
                 <div class="trend__content">
                     <div class="section-title">
-                        <h4 >Hot Trend</h4>
+                        <h4>Hot Trend</h4>
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
