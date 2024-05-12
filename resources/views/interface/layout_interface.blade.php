@@ -112,7 +112,6 @@
                                     <button class="btn btn-success " type="submit"><span
                                             class="icon_search mr-2"></span>Tìm&nbsp;kiếm</button>
                                 </form>
-
                             </li>
 
                         </ul>
@@ -125,12 +124,14 @@
                             <div class="header__right__auth">
                                 @if(Auth::check())
                                     <a href="" class="hover">{{ Auth::user()->fullname }}</a>
-                                    <a href="{{ route('gd.logout') }}" class="">Logout</a>
+                                    <a href="{{ route('gd.logout') }}" class="">Thoát</a>
                                 @else
-                                    <a href="{{ route('gd.login') }}" class="">Login</a>
+                                <button class="btn" id="openModalBtn">Đăng nhập</button>
+
                                 @endif  
-    
-                      </div>
+
+
+                          </div>
 
                             <ul class="header__right__widget">
                                 <!-- <li><span class="icon_search search-switch"></span></li> -->
@@ -231,12 +232,14 @@
         </div>
     </div>
     <!-- Search End -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Js Plugins -->
     <script src="{{asset('public/interface')}}/js/wow.min.js"></script>
     <script>
         new WOW().init();
     </script>
+    @include('interface/pages/login')
     <script src="{{asset('public/interface')}}/js/bootstrap.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery.magnific-popup.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery-ui.min.js"></script>
@@ -246,6 +249,7 @@
     <script src="{{asset('public/interface')}}/js/owl.carousel.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery.nicescroll.min.js"></script>
     <script src="{{asset('public/interface')}}/js/main.js"></script>
+    <script src="{{asset('public/interface')}}/js/login.js"></script>
 
 
     @stack('scripts')

@@ -119,7 +119,10 @@
             <div class="product__price">{{ number_format($product->price, 0, ',', ',') }} VNĐ/G1</div>
         </div>
         <div class="text-center mt-3 border border-success rounded-lg btn-hover-cart">
-        <button  class="btn btn-sm text-danger "><span class="fa fa-cart-plus " style="color:red;"></span> Thêm vào giỏ</button>
+        <button onclick="momodal()" data-product-id="{{$product->id}}" class="add-to-cart-btn btn btn-sm text-danger">
+    <span class="fa fa-cart-plus" style="color:red;"></span> Thêm vào giỏ
+</button>
+
 
         </div>
     </div>
@@ -312,7 +315,70 @@
 <!-- Trend Section End -->
 
 
+<div class="nenmodal" id="nenmodal-1">
+    <div class="nenmodal2"></div>
+    <div class="ndmodal">
+        <div class="closemodal">
+            <button onclick="closeModal()">×</button>
+        </div>
+        <div class="titlemodal">Thông báo</div>
+        <div class="modal-content" id="modal-content">
+            <!-- Nội dung thông báo sẽ được thay thế bằng Ajax -->
+        </div>
+    </div>
+</div>
 
+
+<script>
+$(document).ready(function () {
+    $('.add-to-cart-btn').click(function () {
+        var productId = $(this).data('product-id'); // Lấy ID sản phẩm từ thuộc tính dữ liệu
+        $.ajax({
+            url: "{{route('gd.addcart')}}",
+            type: 'post',
+            data: {
+                'id': productId,
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            success: function (message) {
+                var modalContent = $('#modal-content');
+                if (message) {
+                    modalContent.html("<p>Thêm vào giỏ hàng thành công!</p>");
+                } else {
+                    modalContent.html("<p>Thêm giỏ hàng thất bại!</p>");
+                }
+                momodal(); // Hiển thị modal
+                // Đóng modal sau 2 giây
+                setTimeout(function() {
+                    closeModal();
+                }, 2000);
+            }
+        });
+    });
+
+    function momodal() {
+        document.getElementById("nenmodal-1").classList.toggle("active");
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("nenmodal-1");
+        modal.classList.remove("active"); // Loại bỏ class 'active' để ẩn modal
+        location.reload();
+    }
+
+    // Sự kiện nhấp vào nút "Đóng" trong modal
+    $('.closemodal button').click(function() {
+        closeModal();
+        location.reload();
+    });
+});
+
+
+
+</script>
 
 
 @endsection

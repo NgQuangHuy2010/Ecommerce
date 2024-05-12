@@ -85,7 +85,11 @@ foreach (Session::get("cart") as $item) {
 </div>
 <!-- Cart End -->
 <?php } else {
-    echo "<p  align='center'>Giỏ hàng trống !</p>";
+echo "<p align='center' style='margin-top: 100px; margin-bottom: 100px;'>Giỏ hàng trống! <a style='color:green;' href='" . route("gd.home") . "'>Tiếp tục mua hàng</a></p>";
+
+
+
+
 } ?>
 @endsection
 

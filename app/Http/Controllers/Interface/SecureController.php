@@ -17,41 +17,34 @@ class SecureController extends Controller
 {
     public function login(Request $request)
     {
-
         if ($request->isMethod('post')) {
             $messages = [
-                'email.exists' => 'email or password is incorrect',   //'exists'kiểm tra xem email có tồn tại ko, nếu ko tồn tại in lỗi
-                // 'email.required' => 'ko dc de trong',
+                'email.exists' => 'Email or password is incorrect',
             ];
             $this->validate($request, [
                 'email' => 'required|email|exists:account,email',
                 'password' => 'required|alpha_num|min:6|max:32',
             ], $messages);
-
+    
             $email = $request->email;
             $password = $request->password;
             $remember = $request->remember;
             if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
-
-
                 if (Auth::user()->status == 1) {
-                    toastr()->success('Login success');
-                    return redirect()->route('gd.home');
+                    // Đăng nhập thành công
+                    return response()->json(['success' => true]);
                 } else {
-                    Auth::logout();
-                    echo "tài khoản bị cấm";
+                    // Nếu tài khoản bị cấm, trả về thông báo lỗi
+                    return response()->json(['success' => false, 'error' => 'Tài khoản của bạn đã bị cấm.']);
                 }
             } else {
-                return redirect()->route('gd.login')
-                    ->withErrors(['email' => 'Email or password is incorrect']) //Được sử dụng để đặt các thông báo lỗi cho người dùng.
-                    ->withInput($request->only('email')); //Được sử dụng để giữ lại giá trị trong ô input khi ngdùng nhập sai "dùng hàm only() để giữ lại ô input mình cần giữ"
+                // Đăng nhập thất bại, trả về thông báo lỗi
+                return response()->json(['success' => false, 'error' => 'Email hoặc mật khẩu không chính xác.']);
             }
-
         } else {
+            // Nếu không phải là phương thức POST, trả về view đăng nhập
             return view("interface/pages/login");
         }
-
-
     }
     public function logout()
     {
