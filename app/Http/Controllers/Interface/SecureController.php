@@ -39,8 +39,9 @@ class SecureController extends Controller
 
             if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
                 if (Auth::user()->status == 1) {
-                    toastr()->success('Login success');
+                    toastr()->success('Đăng nhập thành công');
                     return redirect()->route('gd.home');
+
                 } else {
                     Auth::logout();
                     return redirect()->back()
@@ -63,7 +64,7 @@ class SecureController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 "fullname" => "required|min:6|max:32",
-                "address" => "required|min:6|max:150",
+             
                 "email" => "required|email|unique:account,email",
               
                 "password" => "required|min:6|max:32",

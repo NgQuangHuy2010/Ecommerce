@@ -127,10 +127,11 @@
                                     <a href="{{ route('gd.logout') }}" class="">Thoát</a>
                                 @else
 
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                <button type="button" class="btn btn-link link-login " data-toggle="modal"
                                     data-target="#loginModal">Đăng nhập</button>
                                 <!-- Button to Open Registration Modal -->
-                                @endif                              </div>
+                                @endif                             
+                             </div>
 
                             <ul class="header__right__widget">
                                 <!-- <li><span class="icon_search search-switch"></span></li> -->

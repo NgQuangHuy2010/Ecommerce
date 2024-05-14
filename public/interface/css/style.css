@@ -1,3 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.underline{
+    text-decoration: underline !important;
+}
+.link-login{
+color: #228b22;
+}
+.label-modal{
+    font-size: 13px;
+
+    
+}
 /* modal login and register */
  .modal {
     display: none;
@@ -39,7 +52,7 @@
     font-weight: bold;
   }
   .close{
-      font-size: 40px;
+      font-size: 30px;
   }
 /* end modal */
 
@@ -133,7 +146,7 @@
 html,
 body {
     height: 100%;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 .hover:hover {
@@ -186,6 +199,7 @@ p {
 
 img {
     max-width: 100%;
+   
 }
 .img_logo {
     max-width: 100%;
@@ -201,7 +215,7 @@ textarea:focus {
 
 a:hover,
 a:focus {
-    text-decoration: none;
+   
     outline: none;
 }
 
@@ -209,6 +223,7 @@ ul,
 ol {
     padding: 0;
     margin: 0;
+    
 }
 
 /*---------------------
@@ -1917,7 +1932,7 @@ ol {
     text-transform: uppercase;
     padding: 14px 30px 15px;
     border-radius: 50px;
-    float: left;
+  
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -1972,7 +1987,7 @@ ol {
     font-weight: 600;
     color: #111111;
     width: 150px;
-    float: left;
+    
 }
 
 .product__details__widget ul li .stock__checkbox {
