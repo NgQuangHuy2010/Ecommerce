@@ -13,71 +13,93 @@ use Mail;
 use App\Mail\Sendmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 class SecureController extends Controller
 {
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
             $messages = [
-                'email.exists' => 'Email or password is incorrect',
+                'email.exists' => 'Email hoặc password không đúng! Vui lòng thử lại',
             ];
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'email' => 'required|email|exists:account,email',
                 'password' => 'required|alpha_num|min:6|max:32',
             ], $messages);
-    
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                                 ->withErrors($validator, 'login')
+                                 ->withInput($request->only('email'));
+            }
+
             $email = $request->email;
             $password = $request->password;
             $remember = $request->remember;
+
             if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
                 if (Auth::user()->status == 1) {
-                    // Đăng nhập thành công
-                    return response()->json(['success' => true]);
+                    toastr()->success('Login success');
+                    return redirect()->route('gd.home');
                 } else {
-                    // Nếu tài khoản bị cấm, trả về thông báo lỗi
-                    return response()->json(['success' => false, 'error' => 'Tài khoản của bạn đã bị cấm.']);
+                    Auth::logout();
+                    return redirect()->back()
+                                     ->withErrors(['login' => 'Tài khoản bị cấm'])
+                                     ->withInput($request->only('email'));
                 }
             } else {
-                // Đăng nhập thất bại, trả về thông báo lỗi
-                return response()->json(['success' => false, 'error' => 'Email hoặc mật khẩu không chính xác.']);
+                return redirect()->back()
+                                 ->withErrors(['login' => 'Email or password is incorrect'])
+                                 ->withInput($request->only('email'));
             }
         } else {
-            // Nếu không phải là phương thức POST, trả về view đăng nhập
-            return view("interface/pages/login");
+            return view("interface.pages.home");
         }
     }
-    public function logout()
-    {
-        return redirect()->route('gd.home')->with(Auth::logout());
-    }
+
+ 
     public function register(Request $request)
     {
         if ($request->isMethod('post')) {
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 "fullname" => "required|min:6|max:32",
                 "address" => "required|min:6|max:150",
-                "email" => "required|unique:account,email",
-                "username" => "required|alpha_num|min:6|max:32",
-                "password" => "required",
-                "phone" => "required",
-
+                "email" => "required|email|unique:account,email",
+              
+                "password" => "required|min:6|max:32",
+                "phone" => "required|numeric|min:10",
             ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                                 ->withErrors($validator, 'register')
+                                 ->withInput();
+            }
+
             $register = new Account();
             $register->fullname = $request->fullname;
             $register->address = $request->address;
             $register->email = $request->email;
-            $register->username = $request->username;
+         
             $register->password = bcrypt($request->password);
             $register->phone = $request->phone;
             $register->role = 0;
             $register->save();
-            toastr()->success('Dang ky thanh cong');
+
+            toastr()->success('Đăng ký thành công');
             return redirect()->route("gd.login");
         } else {
-            return view("interface/pages/register");
+            return view("interface.pages.home");
         }
     }
 
+
+
+
+    public function logout()
+    {
+        return redirect()->route('gd.home')->with(Auth::logout());
+    }
     // function test()
     // {
 

@@ -12,7 +12,7 @@ class Account extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     protected $table="account";
     protected $primarykey="id";
-    protected $fillable = ["username", "address", "email", "fullname","phone","role", "status"];
+    protected $fillable = [ "address", "email", "fullname","phone","role", "status"];
     protected $hidden =["password","remember_token" ];
     public $timestamps = false;
 

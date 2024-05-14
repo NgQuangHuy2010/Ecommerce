@@ -126,12 +126,11 @@
                                     <a href="" class="hover">{{ Auth::user()->fullname }}</a>
                                     <a href="{{ route('gd.logout') }}" class="">Thoát</a>
                                 @else
-                                <button class="btn" id="openModalBtn">Đăng nhập</button>
 
-                                @endif  
-
-
-                          </div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#loginModal">Đăng nhập</button>
+                                <!-- Button to Open Registration Modal -->
+                                @endif                              </div>
 
                             <ul class="header__right__widget">
                                 <!-- <li><span class="icon_search search-switch"></span></li> -->
@@ -222,24 +221,29 @@
     </footer>
     <!-- Footer Section End -->
 
-    <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
-    </div>
-    <!-- Search End -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Js Plugins -->
     <script src="{{asset('public/interface')}}/js/wow.min.js"></script>
     <script>
+        //khởi tạo wow
         new WOW().init();
     </script>
-    @include('interface/pages/login')
+
+    <script>
+    //show modal login khi validate
+        $(document).ready(function () {
+            @if ($errors->login->any())
+                $('#loginModal').modal('show');
+            @endif
+
+            @if ($errors->register->any())
+                $('#registerModal').modal('show');
+            @endif
+        });
+    </script>
+    @include('interface.pages.login')
+    @include('interface.pages.register')
     <script src="{{asset('public/interface')}}/js/bootstrap.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery.magnific-popup.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery-ui.min.js"></script>
