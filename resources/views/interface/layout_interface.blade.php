@@ -231,18 +231,23 @@
         new WOW().init();
     </script>
 
-    <script>
-    //show modal login khi validate
-        $(document).ready(function () {
-            @if ($errors->login->any())
-                $('#loginModal').modal('show');
-            @endif
+<script>
+    $(document).ready(function () {
+        @if ($errors->login->any())
+            $('#loginModal').modal('show');
+        @endif
 
-            @if ($errors->register->any())
-                $('#registerModal').modal('show');
-            @endif
-        });
-    </script>
+        @if ($errors->register->any())
+            $('#registerModal').modal('show');
+        @endif
+
+        @if (session('registration_success'))
+            $('#loginModal').modal('show');
+        @endif
+    });
+</script>
+
+
     @include('interface.pages.login')
     @include('interface.pages.register')
     <script src="{{asset('public/interface')}}/js/bootstrap.min.js"></script>

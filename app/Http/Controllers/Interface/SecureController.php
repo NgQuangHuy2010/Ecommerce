@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Interface;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use Auth;
@@ -54,7 +55,7 @@ class SecureController extends Controller
                                  ->withInput($request->only('email'));
             }
         } else {
-            return view("interface.pages.home");
+            return view("interface/pages/home");
         }
     }
 
@@ -64,35 +65,33 @@ class SecureController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 "fullname" => "required|min:6|max:32",
-             
                 "email" => "required|email|unique:account,email",
-              
                 "password" => "required|min:6|max:32",
                 "phone" => "required|numeric|min:10",
             ]);
-
+    
             if ($validator->fails()) {
                 return redirect()->back()
                                  ->withErrors($validator, 'register')
                                  ->withInput();
             }
-
+    
             $register = new Account();
             $register->fullname = $request->fullname;
-            $register->address = $request->address;
             $register->email = $request->email;
-         
             $register->password = bcrypt($request->password);
             $register->phone = $request->phone;
             $register->role = 0;
             $register->save();
-
+    
             toastr()->success('Đăng ký thành công');
-            return redirect()->route("gd.login");
+            return redirect()->route('gd.home')->with('registration_success', true);
         } else {
-            return view("interface.pages.home");
+         
+            return view("interface/pages/home");
         }
     }
+    
 
 
 
