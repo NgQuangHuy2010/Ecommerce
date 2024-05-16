@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Interface\HomeController;
 use App\Http\Controllers\Interface\CartController;
-use App\Http\Controllers\Interface\ApiVietNam;
+use App\Http\Controllers\Interface\CheckoutController;
 
 use App\Http\Middleware\Phanquyen;
 //duong dan trang chu interface
@@ -22,7 +22,7 @@ Route::get("/details/{name}/{key}", [HomeController::class, 'details'])->name("g
 Route::get("/search/{key?}", [HomeController::class, 'search'])->name("gd.search"); //{key?} ? la nhap gi cung dc
 Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_result");
 
-Route::match(['get','post'],"/check-out", [CartController::class, 'checkout'])->name("gd.checkout"); 
+Route::match(['get','post'],"/check-out", [CheckoutController::class, 'checkout'])->name("gd.checkout"); 
 // Route::get("/check-out", [ApiVietNam::class, 'getApi'])->name("gd.getApi");
 
 //product
