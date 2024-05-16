@@ -137,7 +137,7 @@
 
     &:hover {
 
-      a {
+      button {
         background: $primary-color;
         
         span {
@@ -148,7 +148,7 @@
       }
     }
 
-    a {
+    button {
       font-size: 18px;
       color: $heading-color;
       display: block;

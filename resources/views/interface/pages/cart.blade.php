@@ -11,7 +11,7 @@ if (Session::get("cart")) {
                 <thead class=" text-dark">
                     <tr>
                         <th>Sản phẩm</th>
-                        <th>Giá</th>
+                        <th>Đơn giá</th>
                         <th>Số lượng</th>
                         <th>Tổng giá</th>
                         <th>Xóa</th>
@@ -23,7 +23,7 @@ if (Session::get("cart")) {
                     ?>
                     <tr>
                         <td class="align-middle"><img src="img/product-5.jpg" alt="" style="width: 50px;"> {{$item['name']}}</td>
-                        <td class="align-middle">{{$item['price']}}</td>
+                        <td class="align-middle">{{ number_format($item['price'], 0, ',', ',') }} VNĐ</td>
                         <td class="align-middle d-flex justify-content-center" >
                             <div class="input-group quantity mx-auto d-flex  " style="width: 100px;">
                             
@@ -31,7 +31,7 @@ if (Session::get("cart")) {
                                
                             </div>
                         </td>
-                       <td class="align-middle">{{$item['soluong']*$item['price']}}</td>
+                       <td class="align-middle"> {{ number_format($item['soluong']*$item['price'], 0, ',', ',') }} VNĐ</td>
                         <td class="align-middle">
                             <a href="{{route('gd.delcart', $item['id'])}}" class="btn btn-sm btn-cart"><i class="fa fa-times"></i></a></td>
                     </tr>
@@ -52,9 +52,9 @@ foreach (Session::get("cart") as $item) {
         <div class="col-lg-4">
             <form class="mb-5" action="">
                 <div class="input-group">
-                    <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                    <input type="text" class="form-control p-4" placeholder="Mã giảm giá">
                     <div class="input-group-append">
-                        <button class="btn btn-cart">Apply Coupon</button>
+                        <button class="btn btn-cart">Thêm mã giảm giá</button>
                     </div>
                 </div>
             </form>
@@ -64,20 +64,20 @@ foreach (Session::get("cart") as $item) {
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 pt-1">
-                        <h6 class="font-weight-medium">Subtotal</h6>
-                        <h6 class="font-weight-medium"> {{$totalAmount}}</h6>
+                        <h6 class="font-weight-medium">Tạm tính</h6>
+                        <h6 class="font-weight-medium"> {{ number_format($totalAmount, 0, ',', ',') }} VNĐ</h6>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$0</h6>
+                        <h6 class="font-weight-medium">Phí vận chuyển</h6>
+                        <h6 class="font-weight-medium">0</h6>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
-                        <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">{{$totalAmount}}</h5>
+                        <h6 class="font-weight-bold text-danger">Tổng tiền thanh toán </h6>
+                        <h5 class="font-weight-bold text-danger">{{ number_format($totalAmount, 0, ',', ',') }} VNĐ</h5>
                     </div>
-                    <a href="{{route('gd.checkout')}}" class="btn btn-block btn-cart my-3 py-3">Proceed To Checkout</a>
+                    <a href="{{route('gd.checkout')}}" class="btn btn-block btn-cart my-3 py-3">Tiến hành thanh toán</a>
                 </div>
             </div>
         </div>

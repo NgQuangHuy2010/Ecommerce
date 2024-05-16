@@ -8,6 +8,6 @@
 <body>
    
     <h3>Vui lòng bấm vào đây để reset password</h3>
-    <a href="{{route('gd.resetPassword',$token)}}">Reset Password</a>
+    <a href="{{route('gd.resetPassword',$token)}}">Reset mật khẩu</a>
 </body>
 </html>

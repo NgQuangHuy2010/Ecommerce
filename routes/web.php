@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Interface\HomeController;
 use App\Http\Controllers\Interface\CartController;
+use App\Http\Controllers\Interface\ApiVietNam;
+
 use App\Http\Middleware\Phanquyen;
 //duong dan trang chu interface
 Route::get("/", [HomeController::class, 'index'])->name("gd.home");
@@ -19,7 +21,10 @@ Route::get("/", [HomeController::class, 'index'])->name("gd.home");
 Route::get("/details/{name}/{key}", [HomeController::class, 'details'])->name("gd.details");
 Route::get("/search/{key?}", [HomeController::class, 'search'])->name("gd.search"); //{key?} ? la nhap gi cung dc
 Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_result");
+
 Route::match(['get','post'],"/check-out", [CartController::class, 'checkout'])->name("gd.checkout"); 
+// Route::get("/check-out", [ApiVietNam::class, 'getApi'])->name("gd.getApi");
+
 //product
 Route::get("/product/{key}", [User_ProductsController::class, 'product'])->name("gd.product");
 Route::get('/products/sort/{type}', [User_ProductsController::class, 'sort'])->name('product.sort');
@@ -37,6 +42,8 @@ Route::post("/reset-password", [SecureController::class, 'resetPasswordPost'])->
 Route::match(['get','post'],"/cart", [CartController::class, 'cart'])->name("gd.cart");
 Route::post("/cart",[CartController::class,'addcart'])->name("gd.addcart");
 Route::get("/del-cart/{key}",[CartController::class,'delcart'])->name("gd.delcart");
+
+
 //dung route group
 Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::get("/admin", [AdminController::class, 'index'])->name("ht.admin");

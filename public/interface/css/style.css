@@ -1522,7 +1522,7 @@ ol {
     transition: all, 0.5s;
 }
 
-.product__hover li a span {
+.product__hover li button span {
     position: relative;
     -webkit-transform: rotate(0);
     -ms-transform: rotate(0);

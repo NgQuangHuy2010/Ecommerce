@@ -146,7 +146,7 @@ $category = App\Models\Categorie::where('status', 1)->get();
                                     <div class="label new">New</div>
                                     <ul class="product__hover">
                                       
-                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                        <li><button onclick="momodal()" data-product-id="{{$item->id}}" class="add-to-cart-btn btn-success btn"><span class="icon_bag_alt"></span></button></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -175,4 +175,73 @@ $category = App\Models\Categorie::where('status', 1)->get();
             </div>
         </div>
     </section>
+
+
+
+
+
+    <div class="nenmodal" id="nenmodal-1">
+    <div class="nenmodal2"></div>
+    <div class="ndmodal">
+        <div class="closemodal">
+            <button onclick="closeModal()">×</button>
+        </div>
+        <div class="titlemodal">Thông báo</div>
+        <div class="modal-content" id="modal-content">
+            <!-- Nội dung thông báo sẽ được thay thế bằng Ajax -->
+        </div>
+    </div>
+</div>
+    
+<script>
+$(document).ready(function () {
+    $('.add-to-cart-btn').click(function () {
+        var productId = $(this).data('product-id'); // Lấy ID sản phẩm từ thuộc tính dữ liệu
+        $.ajax({
+            url: "{{route('gd.addcart')}}",
+            type: 'post',
+            data: {
+                'id': productId,
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            success: function (message) {
+                var modalContent = $('#modal-content');
+                if (message) {
+                    modalContent.html("<p>Thêm vào giỏ hàng thành công!</p>");
+                } else {
+                    modalContent.html("<p>Thêm giỏ hàng thất bại!</p>");
+                }
+                momodal(); // Hiển thị modal
+                // Đóng modal sau 2 giây
+                setTimeout(function() {
+                    closeModal();
+                }, 2000);
+            }
+        });
+    });
+
+    function momodal() {
+        document.getElementById("nenmodal-1").classList.toggle("active");
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("nenmodal-1");
+        modal.classList.remove("active"); // Loại bỏ class 'active' để ẩn modal
+        location.reload();
+    }
+
+    // Sự kiện nhấp vào nút "Đóng" trong modal
+    $('.closemodal button').click(function() {
+        closeModal();
+        location.reload();
+    });
+});
+
+
+
+</script>
+
 @endsection

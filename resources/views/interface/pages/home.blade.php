@@ -5,6 +5,7 @@
 ?>
 <!-- Banner Section Begin -->
 <!-- Thêm các thuộc tính của thư viện wow.js -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 
 <section style="">
@@ -50,29 +51,29 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="services__item">
                     <i class="fa fa-car"></i>
-                    <h6>Free Shipping</h6>
-                    <p>For all oder over $99</p>
+                    <h6>Miễn phí vận chuyển</h6>
+                    <p>Đối với đơn hàng trên 1 triệu</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="services__item">
                     <i class="fa fa-money"></i>
-                    <h6>Money Back Guarantee</h6>
-                    <p>If good have Problems</p>
+                    <h6>Hoàn trả tiền</h6>
+                    <p>Nếu sản phẩm có vấn đề</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="services__item">
                     <i class="fa fa-support"></i>
-                    <h6>Online Support 24/7</h6>
-                    <p>Dedicated support</p>
+                    <h6>Hỗ trợ 24/7</h6>
+                    <p>Hỗ trợ chuyên dụng</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="services__item">
                     <i class="fa fa-headphones"></i>
-                    <h6>Payment Secure</h6>
-                    <p>100% secure payment</p>
+                    <h6>Thanh toán an toàn</h6>
+                    <p>Thanh toán an toàn</p>
                 </div>
             </div>
         </div>
@@ -382,3 +383,4 @@ $(document).ready(function () {
 
 
 @endsection
+{!! Toastr::message() !!}

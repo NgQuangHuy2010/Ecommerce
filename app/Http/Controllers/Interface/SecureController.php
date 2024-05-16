@@ -22,6 +22,11 @@ class SecureController extends Controller
         if ($request->isMethod('post')) {
             $messages = [
                 'email.exists' => 'Email hoặc password không đúng! Vui lòng thử lại',
+                'email.required' => 'Email không được bỏ trống!',
+                'password.required' => 'Mật khẩu không được bỏ trống!',
+                'Password.min' => 'Mật khẩu chưa đủ 6 ký tự!'
+
+
             ];
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email|exists:account,email',
@@ -52,7 +57,7 @@ class SecureController extends Controller
             } else {
                 return redirect()->route('gd.home')
                                  ->with('registration_success', true)
-                                 ->withErrors(['email' => 'Email or password is incorrect'])
+                                 ->withErrors(['email' => 'Email hoặc password không đúng! Vui lòng thử lại'])
                                  ->withInput($request->only('email'));
             }
         } else {
@@ -65,12 +70,23 @@ class SecureController extends Controller
     public function register(Request $request)
     {
         if ($request->isMethod('post')) {
+            $messages = [
+                'email.exists' => 'Email hoặc password không đúng! Vui lòng thử lại',
+                'email.required' => 'Email không được bỏ trống!',
+                'email.unique' => 'Email đã được đăng ký! Vui lòng dùng email khác !',
+                'password.required' => 'Mật khẩu không được bỏ trống!',
+                'Password.min' => 'Mật khẩu chưa đủ 6 ký tự!',
+                'fullname.required' => 'Tên không được bỏ trống!',
+                'phone.required' => 'Số điện thoại không được bỏ trống!',
+
+
+            ];
             $validator = Validator::make($request->all(), [
-                "fullname" => "required|min:6|max:32",
+                "fullname" => "required|max:32",
                 "email" => "required|email|unique:account,email",
                 "password" => "required|min:6|max:32",
                 "phone" => "required|numeric|min:10",
-            ]);
+            ], $messages);
     
             if ($validator->fails()) {
                 return redirect()->back()

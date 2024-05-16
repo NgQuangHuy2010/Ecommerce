@@ -71,6 +71,8 @@ class CartController extends Controller
             }
             return redirect()->route('gd.home');
         }
-        return view("interface/pages/checkout");
+        $apiController = new ApiVietNam();
+        $locations = $apiController->getApi($request);
+        return view("interface/pages/checkout", compact('locations'));
     }
 }

@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 
-<div class="container">
+<div class="container my-5">
     <style>
         .login-img img {
             width: 10%;

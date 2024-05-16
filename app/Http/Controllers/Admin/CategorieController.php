@@ -40,6 +40,7 @@ class CategorieController extends Controller
       //   $cate->image = $nameimage;
       // }
       $cate->save();
+      
       toastr()->success(' More success!');
       // Session::flash('note','Successfully !');
       return redirect()->route("ht.categorie");

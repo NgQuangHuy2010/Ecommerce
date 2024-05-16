@@ -19,6 +19,7 @@
                           <p class="text-danger">{{ $errors->login->first('email') }}</p>
                    
                   @endif
+                  {!!$errors->first('email','<p class="has-error text-danger">:message</p>')!!}
                     </div>
                     <div class="form-group">
                         <label class="label-modal">Mật khẩu:</label>
