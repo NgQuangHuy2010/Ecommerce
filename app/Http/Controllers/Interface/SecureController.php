@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Interface;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use Auth;
@@ -19,6 +18,7 @@ class SecureController extends Controller
 {
     public function login(Request $request)
     {
+       
         if ($request->isMethod('post')) {
             $messages = [
                 'email.exists' => 'Email hoặc password không đúng! Vui lòng thử lại',
@@ -50,13 +50,15 @@ class SecureController extends Controller
                                      ->withInput($request->only('email'));
                 }
             } else {
-                return redirect()->back()
-                                 ->withErrors(['login' => 'Email or password is incorrect'])
+                return redirect()->route('gd.home')
+                                 ->with('registration_success', true)
+                                 ->withErrors(['email' => 'Email or password is incorrect'])
                                  ->withInput($request->only('email'));
             }
         } else {
             return view("interface/pages/home");
         }
+       
     }
 
  

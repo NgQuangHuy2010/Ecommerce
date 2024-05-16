@@ -34,9 +34,13 @@
 
 
 </head>
-
+<style>
+  
+</style>
 <body>
+
     <!-- Page Preloder -->
+
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -108,9 +112,25 @@
                             <li><a href="./contact.html">Liên hệ</a></li>
                             <li class="ml-5 ">
                                 <form class="d-flex" action="{{route("gd.search")}}" method="GET">
-                                    <input class="form-control me-2" name="keyword" placeholder="Tìm kiếm sản phẩm...">
+                                <div class="search">
+                                <div class="search-box">
+                                    <div class="search-field">
+                                    <input placeholder="Tìm kiếm sản phẩm..." name="keyword" class="input" type="text">
+                                    <div class="search-box-icon">
+                                        <button class="btn-icon-content"  type="submit">
+                                        <i class="search-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
+                                            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" fill="#228b22"></path>
+                                            </svg>
+                                        </i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                    <!-- <input class="form-control me-2"  >
                                     <button class="btn btn-success " type="submit"><span
-                                            class="icon_search mr-2"></span>Tìm&nbsp;kiếm</button>
+                                            class="icon_search mr-2"></span>Tìm&nbsp;kiếm</button> -->
                                 </form>
                             </li>
 
@@ -130,8 +150,7 @@
                                 <button type="button" class="btn btn-link link-login " data-toggle="modal"
                                     data-target="#loginModal">Đăng nhập</button>
                                 <!-- Button to Open Registration Modal -->
-                                @endif                             
-                             </div>
+                                @endif                              </div>
 
                             <ul class="header__right__widget">
                                 <!-- <li><span class="icon_search search-switch"></span></li> -->
@@ -231,21 +250,21 @@
         new WOW().init();
     </script>
 
-<script>
-    $(document).ready(function () {
-        @if ($errors->login->any())
-            $('#loginModal').modal('show');
-        @endif
+    <script>
+        $(document).ready(function () {
+            @if ($errors->login->any())
+                $('#loginModal').modal('show');
+            @endif
 
-        @if ($errors->register->any())
-            $('#registerModal').modal('show');
-        @endif
+            @if ($errors->register->any())
+                $('#registerModal').modal('show');
+            @endif
 
-        @if (session('registration_success'))
-            $('#loginModal').modal('show');
-        @endif
-    });
-</script>
+            @if (session('registration_success'))
+                $('#loginModal').modal('show');
+            @endif
+        });
+    </script>
 
 
     @include('interface.pages.login')
