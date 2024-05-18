@@ -21,8 +21,9 @@ Route::get("/", [HomeController::class, 'index'])->name("gd.home");
 Route::get("/details/{name}/{key}", [HomeController::class, 'details'])->name("gd.details");
 Route::get("/search/{key?}", [HomeController::class, 'search'])->name("gd.search"); //{key?} ? la nhap gi cung dc
 Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_result");
-
+//checkout
 Route::match(['get','post'],"/check-out", [CheckoutController::class, 'checkout'])->name("gd.checkout"); 
+Route::post("/payment", [CheckoutController::class, 'save_information'])->name("gd.save_information"); 
 // Route::get("/check-out", [ApiVietNam::class, 'getApi'])->name("gd.getApi");
 
 //product

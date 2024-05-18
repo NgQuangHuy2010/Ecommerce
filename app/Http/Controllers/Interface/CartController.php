@@ -34,11 +34,13 @@ class CartController extends Controller
                     'price' => $sp->price,
                     'soluong' => $soluong
                 );
-                $cart = Session::put('cart.' . $sp->id, $item);
-                return response()->json('cart-success');
+                Session::put('cart.' . $sp->id, $item);
+                return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
+                
             }
         }
         return response()->json('cart successfully');
+        
     }
     public function delcart($id = null)
     {
