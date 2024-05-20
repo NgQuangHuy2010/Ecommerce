@@ -51,12 +51,8 @@ class CheckoutController extends Controller
             'fullname' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
-            'address' => 'required|string',
-        ]);
-    
-        // tạo 1 mảng rỗng chứa nhiều số lượng và sản phẩm
-        $products = [];
-    
+             'address' => 'required|string',
+        ]);      
         // vòng lặp duyệt qua từng sản phẩm trong giỏ hàng
         foreach (Session::get("cart") as $item) {
             // Thêm sản phẩm và số lượng được duyệt vào $product
@@ -66,22 +62,23 @@ class CheckoutController extends Controller
               
             ];
         }
-    
         // lưu session vào Shipment_Details
         $request->session()->put('shipment_details', [
             'fullname' => $request->fullname,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
-            'province' => $request->province,
-            'district' => $request->district,
-            'ward' => $request->ward,
+            'province' => $request->selected_province,
+        'district' => $request->selected_district,
+        'ward' => $request->selected_ward,
             'total_price' => $request->total_price,
             'products' => $products, // $product[] dc lấy ra để lưu vào session
         ]);
     
         // Check if the data is stored correctly
-        dd($request->session()->get('shipment_details'));
+        //dd($request->session()->get('shipment_details'));
     }
     
+
+
 }

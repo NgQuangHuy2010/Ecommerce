@@ -10,42 +10,49 @@ if (Session::get("cart")) {
         <?php    if (Auth::check()) {?>
         <div class="col-lg-8">
 
-            <form action="{{route('gd.save_information')}}" method="post" name="form">
+            <form id="shipment-form" action="{{route('gd.save_information')}}" method="post" name="form">
                 @csrf
 
                 <div class="mb-4">
                     <h4 class="font-weight-semi-bold mb-4">Thông tin giao hàng</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label>Tên</label>
+                            <label class="text_size">Tên khách hàng</label>
                             <input class="form-control" name="fullname" type="text"
                                 value="<?php        echo Auth::user()->fullname ?>">
+                            {!!$errors->first('fullname', '<p class="has-error text-danger">:message</p>')!!}
+
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Email</label>
+                            <label class="text_size">Email</label>
                             <input class="form-control" name="email" type="text"
                                 value="<?php        echo Auth::user()->email ?>">
+                            {!!$errors->first('email', '<p class="has-error text-danger">:message</p>')!!}
+
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Số điện thoại</label>
+                            <label class="text_size">Số điện thoại</label>
                             <input class="form-control" name="phone" type="text"
                                 value="<?php        echo Auth::user()->phone ?>">
+                            {!!$errors->first('phone', '<p class="has-error text-danger">:message</p>')!!}
+
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Địa chỉ giao hàng</label>
+                            <label class="text_size">Địa chỉ giao hàng (Số nhà...)</label>
                             <input class="form-control" name="address" type="text"
                                 value="<?php        echo Auth::user()->address ?>">
+                            {!!$errors->first('address', '<p class="has-error text-danger">:message</p>')!!}
 
                         </div>
 
 
                         <div class="form-group col-md-4">
-                            <label for="province">Chọn tỉnh/thành phố</label>
-                            <select id="province" class="form-control">
+                            <label class="text_size" for="province">Chọn tỉnh/thành phố</label>
+                            <select name="province" id="province" class="form-control">
                                 <option value="">Chọn tỉnh/thành phố</option>
                                 @if ($locations)
                                     @foreach ($locations as $province)
-                                        <option name="province" value="{{ $province['name'] }}">{{ $province['name'] }}</option>
+                                        <option value="{{ $province['name'] }}">{{ $province['name'] }}</option>
                                     @endforeach
                                 @else
                                     <option value="">Không có dữ liệu</option>
@@ -54,20 +61,23 @@ if (Session::get("cart")) {
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label for="district">Chọn quận/huyện</label>
-                            <select id="district" class="form-control">
-                                <option name="district" value="">Chọn quận/huyện</option>
+                            <label class="text_size" for="district">Chọn quận/huyện</label>
+                            <select name="district" id="district" class="form-control">
+                                <option value="">Chọn quận/huyện</option>
                             </select>
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label for="ward">Chọn phường/xã</label>
-                            <select id="ward" class="form-control">
-                                <option name="ward" value="">Chọn phường/xã</option>
+                            <label class="text_size" for="ward">Chọn phường/xã</label>
+                            <select name="ward" id="ward" class="form-control">
+                                <option value="">Chọn phường/xã</option>
                             </select>
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="selected_province" name="selected_province" value="">
+                <input type="hidden" id="selected_district" name="selected_district" value="">
+                <input type="hidden" id="selected_ward" name="selected_ward" value="">
         </div>
         <div class="col-lg-4">
             <div class="card border-secondary mb-5">
@@ -125,17 +135,22 @@ if (Session::get("cart")) {
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" id="paypal" value=1 checked>
-                            <label class="custom-control-label" for="paypal">VNPAY</label>
+                            <label class="custom-control-label" for="paypal">MOMO</label>
                         </div>
                     </div>
                 </div>
+        </form>
+
                 <div class="card-footer border-secondary bg-transparent">
-                    <button type="submit" class="btn btn-lg btn-block btn-danger font-weight-bold my-3 py-3">Thanh
-                        toán</button>
+                    <form action="{{ route('gd.momo_payment') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="total_momo" value="{{  $Subtotal }}">
+                        <button type="submit" class="btn btn-lg btn-block btn-danger font-weight-bold my-3 py-3">Thanh
+                            toán</button>
+                    </form>
                 </div>
             </div>
         </div>
-        </form>
         <?php    } else { 
                     ?>
         <div class="m-auto py-5">Vui lòng đăng ký tài khoản để thanh toán&nbsp;
@@ -147,44 +162,11 @@ if (Session::get("cart")) {
 </div>
 <!-- Checkout End -->
 <?php } else {
-    echo "<p align='center'>khong the thanh toan do gio hang trong</p>";
+    echo "<h4 align='center'>Giỏ hàng đang trống</h4>";
 } ?>
 <script>
-    // Thay đổi khi chọn tỉnh/thành phố
-    $('#province').change(function () {
-        var province = $(this).val();
-        $('#district').html('<option value="">Chọn quận/huyện</option>');
-        $('#ward').html('<option value="">Chọn phường/xã</option>');
-
-        // Lọc danh sách quận/huyện dựa trên tỉnh/thành phố đã chọn
-        var districts = @json($locations);
-
-        $.each(districts, function (key, value) {
-            if (value.name === province) {
-                $.each(value.districts, function (key, district) {
-                    $('#district').append('<option value="' + district.name + '">' + district.name + '</option>');
-                });
-            }
-        });
-    });
-
-    // Thay đổi khi chọn quận/huyện
-    $('#district').change(function () {
-        var district = $(this).val();
-        $('#ward').html('<option value="">Chọn phường/xã</option>');
-
-        // Lọc danh sách phường/xã dựa trên quận/huyện đã chọn
-        var districts = @json($locations);
-
-        $.each(districts, function (key, value) {
-            $.each(value.districts, function (key, value) {
-                if (value.name === district) {
-                    $.each(value.wards, function (key, ward) {
-                        $('#ward').append('<option value="' + ward.name + '">' + ward.name + '</option>');
-                    });
-                }
-            });
-        });
-    });
+    //tạo var locations chứa json($loactions) từ view trên để tạo file js riêng gọi vào 
+    var locations = @json($locations);
 </script>
+<script src="{{asset('public/interface')}}/js/select_address.js"></script>
 @endsection

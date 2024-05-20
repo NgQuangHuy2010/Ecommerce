@@ -1,5 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.text_size{
+    font-size: 0.9rem !important;
+    
+}
 /* search  */
 .search {
     --input-line: #1b1b1b;

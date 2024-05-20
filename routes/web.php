@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Interface\HomeController;
 use App\Http\Controllers\Interface\CartController;
 use App\Http\Controllers\Interface\CheckoutController;
+use App\Http\Controllers\Interface\PaymentController;
 
 use App\Http\Middleware\Phanquyen;
 //duong dan trang chu interface
@@ -25,7 +26,10 @@ Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_resu
 Route::match(['get','post'],"/check-out", [CheckoutController::class, 'checkout'])->name("gd.checkout"); 
 Route::post("/payment", [CheckoutController::class, 'save_information'])->name("gd.save_information"); 
 // Route::get("/check-out", [ApiVietNam::class, 'getApi'])->name("gd.getApi");
-
+//payment
+Route::match(['get','post'],'/pay', [PaymentController::class, 'pay'])->name('gd.pay');
+Route::post("/momo_payment", [PaymentController::class, 'momo_payment'])->name("gd.momo_payment");
+Route::get('/payment/confirm', [PaymentController::class, 'confirmPayment'])->name("gd.savepayment");
 //product
 Route::get("/product/{key}", [User_ProductsController::class, 'product'])->name("gd.product");
 Route::get('/products/sort/{type}', [User_ProductsController::class, 'sort'])->name('product.sort');
