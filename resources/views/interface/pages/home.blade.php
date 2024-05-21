@@ -314,7 +314,44 @@
     </div>
 </section>
 <!-- Trend Section End -->
+<!-- modal payment success -->
+@if(Session::has('payment_success'))
+    <!-- Modal -->
+    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="paymentSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="paymentSuccessModalLabel">Thông báo</h5>
+                    <a type="button" class="close me-3" data-dismiss="modal" aria-label="Close">
+                        <div aria-hidden="true" style="font-size: 1em; ">&times;</div>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    Cảm ơn bạn đã mua hàng! <a href="{{route('gd.history')}}">Xem lịch sử đơn hàng</a>
+                </div>
+                <div class="modal-footer"  >
+                    <!-- <button type="button" class="btn btn-secondary" class="close" data-dismiss="modal" aria-hidden="true">Đóng</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
 
+    <!-- Script để hiển thị modal khi trang được tải -->
+    <script>
+        $(document).ready(function(){
+            $('#paymentSuccessModal').modal('show');
+        });
+
+        $(document).ready(function(){
+            $('#paymentSuccessModal .close').click(function(){
+                $('#paymentSuccessModal').modal('hide');
+            });
+        });
+    </script>
+     {{ Session::forget('payment_success') }}
+@endif
+<!-- end modal payment success -->
 
 <div class="nenmodal" id="nenmodal-1">
     <div class="nenmodal2"></div>

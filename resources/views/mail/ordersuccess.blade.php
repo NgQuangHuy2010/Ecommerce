@@ -66,26 +66,10 @@
             <h1>HÓA ĐƠN THANH TOÁN</h1>
         </div>
         <div class="invoice-details">
-            <h2 class="fw-bold">Số hóa đơn: {{ $order->order_id_momo }}</h2>
-            <h3>Mã tour :{{ $order->tour_code }}</h3>
-            <p><strong>Tên Khách Hàng:</strong> {{ $order->fullname }}</p>
-            <p><strong>Số Điện Thoại:</strong> {{ $order->phone }}</p>
-            <p><strong>Địa Chỉ:</strong> {{ $order->address }}</p>
-            <p><strong>Ngày Đi:</strong> {{ $order->date_start }}</p>
-            <p><strong>Ngày Về:</strong> {{ $order->date_end }}</p>
-            <p><strong>Điểm đi</strong> {{ $order->departurelocation }}</p>
-            <p><strong>Điểm đến:</strong> {{ $order->arrivallocation }}</p>
-            <p><strong>Phương tiện di chuyển:</strong> {{ $order->vehicle }}</p>
-            <p><strong>Thời gian đi :</strong> {{ $order-> keyword }}</p>
-            <p><strong>Người lớn :</strong> {{ $order-> person1 }}</p>
-            <p><strong>Trẻ em :</strong> {{ $order-> person2 }}</p>
-            <p><strong>Trẻ nhỏ :</strong> {{ $order-> person3 }}</p>
-            <p><strong>Ghi chú :</strong> {{ $order-> note }}</p>
-
-            <h3 class="text-danger" >Tổng tiền :{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</h3>
+           
         </div>
         <div class="success-message">
-            <p>Cảm ơn bạn đã thanh toán thành công. Chúng tôi sẽ sắp xếp chuyến đi và thông báo đến bạn nhanh nhất.</p>
+            <p>Cảm ơn bạn đã thanh toán thành công. Chúng tôi sẽ sắp xếp đơn hàng giao đến bạn sớm nhất</p>
         </div>
     </div>
 </body>

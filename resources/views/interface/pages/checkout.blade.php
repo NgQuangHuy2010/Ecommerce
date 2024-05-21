@@ -12,7 +12,6 @@ if (Session::get("cart")) {
 
             <form id="shipment-form" action="{{route('gd.save_information')}}" method="post" name="form">
                 @csrf
-
                 <div class="mb-4">
                     <h4 class="font-weight-semi-bold mb-4">Thông tin giao hàng</h4>
                     <div class="row">
@@ -78,6 +77,9 @@ if (Session::get("cart")) {
                 <input type="hidden" id="selected_province" name="selected_province" value="">
                 <input type="hidden" id="selected_district" name="selected_district" value="">
                 <input type="hidden" id="selected_ward" name="selected_ward" value="">
+                <!-- lấy random number-->
+                <input type="hidden" name="random_number" id="randomNumberInput"> 
+
         </div>
         <div class="col-lg-4">
             <div class="card border-secondary mb-5">
@@ -139,11 +141,8 @@ if (Session::get("cart")) {
                         </div>
                     </div>
                 </div>
-        </form>
-
                 <div class="card-footer border-secondary bg-transparent">
-                    <form action="{{ route('gd.momo_payment') }}" method="POST">
-                        @csrf
+                   
                         <input type="hidden" name="total_momo" value="{{  $Subtotal }}">
                         <button type="submit" class="btn btn-lg btn-block btn-danger font-weight-bold my-3 py-3">Thanh
                             toán</button>
@@ -169,4 +168,11 @@ if (Session::get("cart")) {
     var locations = @json($locations);
 </script>
 <script src="{{asset('public/interface')}}/js/select_address.js"></script>
+<script>
+    // Tạo số ngẫu nhiên
+    var randomNumber = Math.floor(Math.random() * 1000000); // Ví dụ: Số ngẫu nhiên từ 0 đến 999999
+
+    // Lưu số ngẫu nhiên vào một input ẩn trong form
+    document.getElementById('randomNumberInput').value = randomNumber;
+</script>
 @endsection

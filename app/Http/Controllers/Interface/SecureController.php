@@ -14,11 +14,12 @@ use App\Mail\Sendmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+
 class SecureController extends Controller
 {
     public function login(Request $request)
     {
-       
+
         if ($request->isMethod('post')) {
             $messages = [
                 'email.exists' => 'Email hoặc password không đúng! Vui lòng thử lại',
@@ -35,8 +36,8 @@ class SecureController extends Controller
 
             if ($validator->fails()) {
                 return redirect()->back()
-                                 ->withErrors($validator, 'login')
-                                 ->withInput($request->only('email'));
+                    ->withErrors($validator, 'login')
+                    ->withInput($request->only('email'));
             }
 
             $email = $request->email;
@@ -51,22 +52,22 @@ class SecureController extends Controller
                 } else {
                     Auth::logout();
                     return redirect()->back()
-                                     ->withErrors(['login' => 'Tài khoản bị cấm'])
-                                     ->withInput($request->only('email'));
+                        ->withErrors(['login' => 'Tài khoản bị cấm'])
+                        ->withInput($request->only('email'));
                 }
             } else {
                 return redirect()->route('gd.home')
-                                 ->with('registration_success', true)
-                                 ->withErrors(['email' => 'Email hoặc password không đúng! Vui lòng thử lại'])
-                                 ->withInput($request->only('email'));
+                    ->with('registration_success', true)
+                    ->withErrors(['email' => 'Email hoặc password không đúng! Vui lòng thử lại'])
+                    ->withInput($request->only('email'));
             }
         } else {
             return view("interface/pages/home");
         }
-       
+
     }
 
- 
+
     public function register(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -87,13 +88,13 @@ class SecureController extends Controller
                 "password" => "required|min:6|max:32",
                 "phone" => "required|numeric|min:10",
             ], $messages);
-    
+
             if ($validator->fails()) {
                 return redirect()->back()
-                                 ->withErrors($validator, 'register')
-                                 ->withInput();
+                    ->withErrors($validator, 'register')
+                    ->withInput();
             }
-    
+
             $register = new Account();
             $register->fullname = $request->fullname;
             $register->email = $request->email;
@@ -101,15 +102,15 @@ class SecureController extends Controller
             $register->phone = $request->phone;
             $register->role = 0;
             $register->save();
-    
+
             toastr()->success('Đăng ký thành công');
             return redirect()->route('gd.home')->with('registration_success', true);
         } else {
-         
+
             return view("interface/pages/home");
         }
     }
-    
+
 
 
 
@@ -129,62 +130,124 @@ class SecureController extends Controller
     //     dd('Email send success');
     // }
 
-public function forgetPassword(){
-    return view("interface/pages/forget-password");
+    public function forgetPassword()
+    {
+        return view("interface/pages/forget-password");
 
-}
-public function forgetPasswordPost(Request $request){
-    $request->validate([
-        'email'=>"required|email|exists:account,email",
-    ]);
-    $token=Str::random(64);
-    DB::table('forget_password')->insert([
-        'email'=>$request->email,
-        'token'=>$token,
-        
-    ]);
-    Mail::send("mail.sendmail",['token'=>$token],function($messages) use($request){
-        $messages->to($request->email);
-        $messages->subject("Reset Password");
-
-    });
-    toastr()->success('Email đã được gửi!');
-    return redirect()->route("gd.forget");
-
-}
-function resetPassword($token){
-    return view("interface/pages/new-password",compact('token'));
-
-}
-function resetPasswordPost(Request $request){
-    $messages = [
-        'password.confirmed' => 'Xác nhận mật khẩu không trùng khớp!!',   
-    ];
-    $request->validate([
-        'email'=>"required|email|exists:account,email",
-        'password' => 'required|string|min:6|confirmed',
-        'password_confirmation' => 'required'
-
-    ],$messages);
-
-    $updatePassword =DB::table('forget_password')->where([
-        'email' =>$request ->email,
-        'token' =>$request ->token
-    ])->first();
-
-    if(!$updatePassword){
-    return redirect()->route("gd.resetPassword");
-        
     }
-    Account::where('email',$request->email)->update(['password'=> Hash::make($request->password)]);
-    DB::table('forget_password')->where(["email"=> $request->email])->delete();
-    toastr()->success('Thay đổi password thành công!');
-    return redirect()->route("gd.login");
+    public function forgetPasswordPost(Request $request)
+    {
+        $request->validate([
+            'email' => "required|email|exists:account,email",
+        ]);
+        $token = Str::random(64);
+        DB::table('forget_password')->insert([
+            'email' => $request->email,
+            'token' => $token,
+
+        ]);
+        Mail::send("mail.sendmail", ['token' => $token], function ($messages) use ($request) {
+            $messages->to($request->email);
+            $messages->subject("Reset Password");
+
+        });
+        toastr()->success('Email đã được gửi!');
+        return redirect()->route("gd.forget");
+
+    }
+    function resetPassword($token)
+    {
+        return view("interface/pages/new-password", compact('token'));
+
+    }
+    function resetPasswordPost(Request $request)
+    {
+        $messages = [
+            'password.confirmed' => 'Xác nhận mật khẩu không trùng khớp!!',
+        ];
+        $request->validate([
+            'email' => "required|email|exists:account,email",
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+
+        ], $messages);
+
+        $updatePassword = DB::table('forget_password')->where([
+            'email' => $request->email,
+            'token' => $request->token
+        ])->first();
+
+        if (!$updatePassword) {
+            return redirect()->route("gd.resetPassword");
+
+        }
+        Account::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+        DB::table('forget_password')->where(["email" => $request->email])->delete();
+        toastr()->success('Thay đổi password thành công!');
+        return redirect()->route("gd.login");
+
+    }
+
+    public function historyOrder()
+    {
+        if (auth()->check()) {
+            $userId = auth()->id(); // Lấy ID của người dùng đã đăng nhập
+
+            $orders = DB::table('order_momo')
+                ->join('order_details', 'order_momo.order_id', '=', 'order_details.order_id_momo')
+                ->where('order_momo.user_id', $userId)
+                ->select('order_momo.*', 'order_details.*')
+                ->get();
+            // chuyển mảng thành chuỗi
+            $formattedOrders = [];
+            foreach ($orders as $order) {
+                $formattedProducts = [];
+                $products = json_decode($order->products, true);
+                foreach ($products as $product) {
+                    $formattedProducts[] = $product['name_product'] . ' x' . $product['quantity'];
+                }
+                $order->formatted_products = implode(', ', $formattedProducts);
+                $formattedOrders[] = $order;
+            }
+            return view('interface.pages.history_order', ['orders' => $formattedOrders]);
+        }
+    }
+
+    public function searchOrder(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            // Xử lý khi phương thức là GET (hiển thị form tìm kiếm)
+            return view('interface.pages.searchform_order');
+        } elseif ($request->isMethod('post')) {
+            // Xử lý khi phương thức là POST (thực hiện tìm kiếm)
+            $order_id_momo = $request->input('order_id_momo');
     
-}
-
-
-
+            $order = DB::table('order_momo')
+                ->join('order_details', 'order_momo.order_id', '=', 'order_details.order_id_momo')
+                ->where('order_momo.order_id', $order_id_momo)
+                ->select('order_momo.*', 'order_details.*')
+                ->get();
+    
+            if ($order->isNotEmpty()) {
+                // Tìm thấy đơn hàng, trả về trang history_order.blade.php với dữ liệu đơn hàng
+                $formattedOrders = $order->map(function ($order) {
+                    $formattedProducts = collect(json_decode($order->products, true))
+                        ->map(function ($product) {
+                            return $product['name_product'] . ' x' . $product['quantity'];
+                        })
+                        ->implode(', ');
+    
+                    $order->formatted_products = $formattedProducts;
+                    return $order;
+                });
+    
+                return view('interface.pages.history_order', ['orders' => $formattedOrders]);
+            } else {
+                // Không tìm thấy đơn hàng, trả về trang history_order.blade.php với cảnh báo
+                return redirect()->route('gd.history')->with('order_not_found', true);
+            }
+        }
+    }
 
 
 

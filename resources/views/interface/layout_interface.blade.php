@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-
+     
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/animate.css" type="text/css">
 
@@ -137,14 +137,25 @@
                         </ul>
                     </nav>
                 </div>
+                
                 <div class="col-lg-3">
-
                     <div class="header__right">
                         <div class="header__right__auth">
                             <div class="header__right__auth">
+                            
                                 @if(Auth::check())
-                                    <a href="" class="hover">{{ Auth::user()->fullname }}</a>
-                                    <a href="{{ route('gd.logout') }}" class="">Thoát</a>
+                                <div class="dropdown ">
+                                    <button class="btn "  data-toggle="dropdown">
+                                    <a class="hover">{{ Auth::user()->fullname }}</a>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{route('gd.history')}}">Lịch sử đặt hàng</a>
+                                    <a class="dropdown-item" href="{{ route('gd.logout') }}" >Thoát</a>
+                                    
+                                    </div>
+                                </div>
+                                   
+                                   
                                 @else
 
                                 <button type="button" class="btn btn-link link-login " data-toggle="modal"
@@ -174,7 +185,7 @@
             </div>
     </header>
     <!-- Header Section End -->
-
+ 
 
     @yield('content')
     <!-- Footer Section Begin -->
@@ -269,6 +280,9 @@
 
     @include('interface.pages.login')
     @include('interface.pages.register')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="{{asset('public/interface')}}/js/bootstrap.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery.magnific-popup.min.js"></script>
     <script src="{{asset('public/interface')}}/js/jquery-ui.min.js"></script>
@@ -279,7 +293,6 @@
     <script src="{{asset('public/interface')}}/js/jquery.nicescroll.min.js"></script>
     <script src="{{asset('public/interface')}}/js/main.js"></script>
     <script src="{{asset('public/interface')}}/js/login.js"></script>
-
 
     @stack('scripts')
 

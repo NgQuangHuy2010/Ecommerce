@@ -27,9 +27,7 @@ Route::match(['get','post'],"/check-out", [CheckoutController::class, 'checkout'
 Route::post("/payment", [CheckoutController::class, 'save_information'])->name("gd.save_information"); 
 // Route::get("/check-out", [ApiVietNam::class, 'getApi'])->name("gd.getApi");
 //payment
-Route::match(['get','post'],'/pay', [PaymentController::class, 'pay'])->name('gd.pay');
-Route::post("/momo_payment", [PaymentController::class, 'momo_payment'])->name("gd.momo_payment");
-Route::get('/payment/confirm', [PaymentController::class, 'confirmPayment'])->name("gd.savepayment");
+Route::get('/payment/confirm', [PaymentController::class, 'Payment'])->name("gd.savepayment");
 //product
 Route::get("/product/{key}", [User_ProductsController::class, 'product'])->name("gd.product");
 Route::get('/products/sort/{type}', [User_ProductsController::class, 'sort'])->name('product.sort');
@@ -47,8 +45,12 @@ Route::post("/reset-password", [SecureController::class, 'resetPasswordPost'])->
 Route::match(['get','post'],"/cart", [CartController::class, 'cart'])->name("gd.cart");
 Route::post("/cart",[CartController::class,'addcart'])->name("gd.addcart");
 Route::get("/del-cart/{key}",[CartController::class,'delcart'])->name("gd.delcart");
+//history order
+Route::get("/history-order", [SecureController::class, 'historyOrder'])->name("gd.history");
+// Show search order form and handle search order
+Route::match(['get', 'post'], '/search-order', [SecureController::class, 'searchOrder'])->name('gd.searchorder');
 
-
+//end history order
 //dung route group
 Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::get("/admin", [AdminController::class, 'index'])->name("ht.admin");
