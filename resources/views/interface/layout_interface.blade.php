@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Ashion Template">
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-     
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{asset('public/interface')}}/css/animate.css" type="text/css">
 
@@ -35,8 +34,9 @@
 
 </head>
 <style>
-  
+
 </style>
+
 <body>
 
     <!-- Page Preloder -->
@@ -49,10 +49,17 @@
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__close">+</div>
-        <ul class="offcanvas__widget">
+
+        <div class="offcanvas__logo d-flex align-items-center justify-content-center">
+            @foreach($logo as $logoItem)
+                <a href="{{route('gd.home')}}"><img src="{{ asset('public/file/img/img_logo/' . $logoItem->image) }}" alt=""
+                        class="img_logo"></a>
+            @endforeach
+        </div>
+        <ul class="offcanvas__widget d-flex">
             <!-- <li><span class="icon_search search-switch"></span></li> -->
 
-            <li><a href="#"><span class="icon_bag_alt"></span>
+            <li><a href="{{route('gd.cart')}}"><span class="icon_cart_alt"></span>
                     <div class="tip">
                         @if(Session::has('cart'))
                             {{count(Session::get('cart'))}}
@@ -62,20 +69,28 @@
                     </div>
                 </a></li>
         </ul>
-        <div class="offcanvas__logo">
-
-
-
-        </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
             @if(Auth::check())
-                <a href="" class="hover">{{ Auth::user()->fullname }}</a>
-                <a href="{{ route('gd.logout') }}" class="">Logout</a>
+                <div class="dropdown ">
+                    <button class="btn dropdown-toggle px-0" data-toggle="dropdown">
+                        <a class="hover"><i class="fa fa-user mr-2" aria-hidden="true"></i>{{ Auth::user()->fullname }}</a>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{route('gd.history')}}"><i class="fa fa-history mr-2"
+                                aria-hidden="true"></i>Lịch sử đặt hàng</a>
+                        <a class="dropdown-item" href="{{ route('gd.logout') }}"><i class="fa fa-sign-out mr-2"
+                                aria-hidden="true"></i>Thoát</a>
+
+                    </div>
+                </div>
             @else
-                <a href="{{ route('gd.login') }}" class="">Login</a>
-            @endif
-        </div>
+
+            <button type="button" class="px-0 btn btn-link link-login" data-toggle="modal" data-target="#loginModal"><i
+                    class="fa fa-sign-in mr-2" aria-hidden="true"></i>
+                Đăng nhập</button>
+            <!-- Button to Open Registration Modal -->
+            @endif          </div>
     </div>
     <!-- Offcanvas Menu End -->
 
@@ -83,7 +98,7 @@
     <header class="header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-lg-2">
+                <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
                         @foreach($logo as $logoItem)
                             <a href="{{route('gd.home')}}"><img
@@ -94,7 +109,11 @@
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
-                        <ul class="d-flex justify-content-center align-item-center">
+                        <ul class="m-auto">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
                             <li class=" {{ request()->routeIs('gd.home') ? 'active' : '' }}"><a
                                     href="{{route('gd.home')}}">Trang chủ</a></li>
 
@@ -110,82 +129,88 @@
                             </li> -->
                             <!-- <li><a href="./blog.html">Blog</a></li> -->
                             <li><a href="./contact.html">Liên hệ</a></li>
-                            <li class="ml-5 ">
+                            <li class="mt-2">
                                 <form class="d-flex" action="{{route("gd.search")}}" method="GET">
-                                <div class="search">
-                                <div class="search-box">
-                                    <div class="search-field">
-                                    <input placeholder="Tìm kiếm sản phẩm..." name="keyword" class="input" type="text">
-                                    <div class="search-box-icon">
-                                        <button class="btn-icon-content"  type="submit">
-                                        <i class="search-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
-                                            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" fill="#228b22"></path>
-                                            </svg>
-                                        </i>
-                                        </button>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                                    <!-- <input class="form-control me-2"  >
-                                    <button class="btn btn-success " type="submit"><span
-                                            class="icon_search mr-2"></span>Tìm&nbsp;kiếm</button> -->
+                                    <div class="search input-group">
+                                        <div class="search-box">
+                                            <div class="search-field ">
+                                                <input placeholder="Tìm sản phẩm..." name="keyword" class="input"
+                                                    type="text" class="form-control">
+                                                <div class="search-box-icon input-group-append">
+                                                    <button class=" btn-icon-content" type="submit">
+                                                        <i class="search-icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                                viewBox="0 0 512 512">
+                                                                <path
+                                                                    d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                                                                    fill="#228b22"></path>
+                                                            </svg>
+                                                        </i>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
                                 </form>
                             </li>
 
                         </ul>
                     </nav>
                 </div>
-                
+
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <div class="header__right__auth">
-                            
-                                @if(Auth::check())
+
+
+                            @if(Auth::check())
                                 <div class="dropdown ">
-                                    <button class="btn "  data-toggle="dropdown">
-                                    <a class="hover">{{ Auth::user()->fullname }}</a>
+                                    <button class="btn " data-toggle="dropdown">
+                                        <a class="hover"><i class="fa fa-user mr-2"
+                                                aria-hidden="true"></i>{{ Auth::user()->fullname }}</a>
                                     </button>
                                     <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{route('gd.history')}}">Lịch sử đặt hàng</a>
-                                    <a class="dropdown-item" href="{{ route('gd.logout') }}" >Thoát</a>
-                                    
+                                        <a class="dropdown-item" href="{{route('gd.history')}}"><i
+                                                class="fa fa-history mr-2" aria-hidden="true"></i>Lịch sử đặt hàng</a>
+                                        <a class="dropdown-item" href="{{ route('gd.logout') }}"><i
+                                                class="fa fa-sign-out mr-2" aria-hidden="true"></i>Thoát</a>
+
                                     </div>
                                 </div>
-                                   
-                                   
-                                @else
 
-                                <button type="button" class="btn btn-link link-login " data-toggle="modal"
-                                    data-target="#loginModal">Đăng nhập</button>
-                                <!-- Button to Open Registration Modal -->
-                                @endif                              </div>
 
-                            <ul class="header__right__widget">
-                                <!-- <li><span class="icon_search search-switch"></span></li> -->
+                            @else
 
-                                <li><a href="{{route('gd.cart')}}"><span class="icon_cart_alt"></span>
-                                        <div class="tip">
-                                            @if(Session::has('cart'))
-                                                {{count(Session::get('cart'))}}
-                                            @else
-                                                0
-                                            @endif
-                                        </div>
-                                    </a></li>
-                            </ul>
-                        </div>
+                            <button type="button" class="btn btn-link link-login " data-toggle="modal"
+                                data-target="#loginModal"><i class="fa fa-sign-in mr-2" aria-hidden="true"></i>Đăng
+                                nhập</button>
+                            <!-- Button to Open Registration Modal -->
+                            @endif                          </div>
+
+                        <ul class="header__right__widget">
+                            <!-- <li><span class="icon_search search-switch"></span></li> -->
+
+                            <li><a href="{{route('gd.cart')}}"><span class="icon_cart_alt"></span>
+                                    <div class="tip">
+                                        @if(Session::has('cart'))
+                                            {{count(Session::get('cart'))}}
+                                        @else
+                                            0
+                                        @endif
+                                    </div>
+                                </a></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="canvas__open">
-                    <i class="fa fa-bars"></i>
-                </div>
             </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
     </header>
     <!-- Header Section End -->
- 
+
 
     @yield('content')
     <!-- Footer Section Begin -->
