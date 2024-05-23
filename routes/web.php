@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\LogoController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Interface\SecureController;
 use App\Http\Controllers\Interface\User_ProductsController;
@@ -77,6 +78,11 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::match(['get', 'post'], '/banner/update/{key}', [BannerController::class, 'update'])->name('ht.banner_update');
     Route::get('/banner/delete/{key}', [BannerController::class, 'delete'])->name('ht.banner_delete');
   
+    //order
+    Route::get("/order", [OrderController::class, 'index'])->name('ht.order');
+    Route::get("/order/details/{id}", [OrderController::class, 'order_details'])->name('ht.order_details');
+    Route::match(['get', 'post'], '/order/add', [OrderController::class, 'add_order'])->name('ht.order_add');
+
 
 })->middleware(Phanquyen::class);;
 

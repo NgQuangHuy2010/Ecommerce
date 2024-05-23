@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Farm Admin </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public')}}/file/img/img_logo/1713069730_share_fb_home.png ">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ asset('public')}}/file/img/img_logo/1713069730_share_fb_home.png ">
 
-   
+
     <link href="{{asset('public')}}/webadmin/assets/css/style.css" rel="stylesheet">
 
 
@@ -26,17 +27,17 @@
             <div class="sk-child sk-bounce3"></div>
         </div>
     </div>
-   
+
     <div id="main-wrapper">
 
- 
+
         <div class="nav-header ">
             <a href="index.html" class="brand-logo d-flex justify-content-center mx-0">
-              
+
                 <?php foreach ($logo as $value) { ?>
                 <img class="brand-title " src="{{ asset('public/file/img/img_logo/' . $value->image) }}" alt="">
 
-                 <?php } ?>
+                <?php } ?>
             </a>
 
             <div class="nav-control">
@@ -46,7 +47,7 @@
             </div>
         </div>
         <div class="header">
-            <div class="header-content">
+                <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
@@ -56,12 +57,12 @@
                                 </span>
                                 <div class="dropdown-menu p-0 m-0">
                                     <form>
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control" type="search" placeholder="Search"
+                                            aria-label="Search">
                                     </form>
                                 </div>
                             </div>
                         </div>
-
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
@@ -74,7 +75,8 @@
                                             <span class="success"><i class="ti-user"></i></span>
                                             <div class="media-body">
                                                 <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                                    <p><strong>Martin</strong> has added a <strong>customer</strong>
+                                                        Successfully
                                                     </p>
                                                 </a>
                                             </div>
@@ -93,7 +95,8 @@
                                             <span class="danger"><i class="ti-bookmark"></i></span>
                                             <div class="media-body">
                                                 <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as
+                                                        unsolved.
                                                     </p>
                                                 </a>
                                             </div>
@@ -112,7 +115,8 @@
                                             <span class="success"><i class="ti-image"></i></span>
                                             <div class="media-body">
                                                 <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                    <p><strong> James.</strong> has added a<strong>customer</strong>
+                                                        Successfully
                                                     </p>
                                                 </a>
                                             </div>
@@ -128,11 +132,13 @@
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{asset('public')}}/webadmin/assets/app-profile.html" class="dropdown-item">
+                                    <a href="{{asset('public')}}/webadmin/assets/app-profile.html"
+                                        class="dropdown-item">
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
-                                    <a href="{{asset('public')}}/webadmin/assets/email-inbox.html" class="dropdown-item">
+                                    <a href="{{asset('public')}}/webadmin/assets/email-inbox.html"
+                                        class="dropdown-item">
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
@@ -150,23 +156,26 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
+                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-user "></i><span class="nav-text">Quản lý
+                                user</span></a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon "></i><span class="nav-text">Danh sách sản phẩm</span></a>
+                                class=" fa fa-list"></i><span class="nav-text">Danh sách sản phẩm</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('ht.categorie')}}">Danh mục</a></li>
-                            <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>  
+                            <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="icon "></i><span
-                    class="nav-text">Logo</span></a></li>
+                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-address-card "></i><span
+                                class="nav-text">Logo</span></a></li>
 
-                    <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="icon "></i><span
-                     class="nav-text">Banner</span></a></li>
-                </ul>   
+                    <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="fa fa-file-image-o "></i><span
+                                class="nav-text">Banner</span></a></li>
+                    <li><a href="{{route('ht.order')}}" aria-expanded="false"><i class="fa fa-line-chart "></i><span
+                                class="nav-text">Đơn hàng</span></a></li>
+                </ul>
             </div>
         </div>
-@yield('content')
+        @yield('content')
     </div>
     <!-- Required vendors -->
     <script src="{{asset('public')}}/webadmin/assets/vendor/global/global.min.js"></script>
