@@ -11,10 +11,8 @@ use Mail;
 
 class PaymentController extends Controller
 {
-
     public function Payment(Request $request)
     {
-
         $ordermomo_sesion = $request->session()->get('order');
         DB::table('order_momo')->insert([
             'user_id' => $ordermomo_sesion['user_id'],
@@ -58,8 +56,6 @@ class PaymentController extends Controller
             $message->to($user_email['email'])->subject("Thanh toán thành công");
         });
         // dd($order);
-
-
         //xóa session order và cart
         $request->session()->forget('order');
         $request->session()->forget('cart');

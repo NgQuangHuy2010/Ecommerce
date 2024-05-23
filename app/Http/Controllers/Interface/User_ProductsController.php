@@ -17,10 +17,8 @@ class User_ProductsController extends Controller
             } else {
                 $data['loadproduct'] = Products::where('idcat', $id)->paginate(6);
           
-
             }
          
-
             // Chuyển đổi chuỗi JSON thành mảng cho trường images
             $data['loadproduct']->each(function ($product) {
                 $product->images = json_decode($product->images, true);

@@ -24,14 +24,9 @@ class ProductsController extends Controller
         "name" => "required",
         "keyword" => "required",
         "desc" => "required",
-        // "content" => "required",
         "price" => "required|numeric",
         'image' => 'required|mimes:jpeg,png,gif,jpg,ico,webp|max:4096',
-        // 'images.*'=>'mimes:jpeg,bmp,png,gif,jpg|max:4096',
-        //"idcat" => "required",
-        // "datecreate" => "required",
-        // "dateedit" => "required",
-        // "status" => "required",
+      
       ]);
       $prod = new Products();
       $prod->name = $request->name;

@@ -20,13 +20,6 @@ class HomeController extends Controller
         return view("interface/pages/home", $data);
     }
 
-
-
-
-   
-
-
-
     public function details($name = null, $id = null)
     {
         $data['details'] = Products::where('id', $id)->where('status', 1)->first();
