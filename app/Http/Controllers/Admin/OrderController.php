@@ -33,7 +33,15 @@ class OrderController extends Controller
     }
 
     public function add_order(){
-        $data["products"] = Products::where("status", 1)->get();
-        return view('adminHT\order\add_order',$data);
+       return view ('adminHT/order/add_order');
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        
+        // Giả sử bạn có model Product và muốn tìm kiếm theo tên sản phẩm
+        $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+
+        return response()->json($products);
     }
 }
