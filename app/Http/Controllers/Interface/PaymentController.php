@@ -35,6 +35,7 @@ class PaymentController extends Controller
             }
             DB::table('order_details')->insert([
                 'order_id' => $order->id,
+            'user_id' => $ordermomo_sesion['user_id'],
                 'order_id_momo' => $ordermomo_sesion['orderId'],
                 'fullname' => $order_details['fullname'],
                 'email' => $order_details['email'],

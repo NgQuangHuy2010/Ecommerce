@@ -1,8 +1,6 @@
 @extends ('interface/layout_interface')
 @section('content')
-<style>
 
-</style>
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
     <div class="container">

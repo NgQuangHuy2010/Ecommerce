@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\Order_details;
 use App\Models\OrderMomo;
 use App\Models\Products;
@@ -35,7 +36,7 @@ class OrderController extends Controller
     public function add_order(){
        return view ('adminHT/order/add_order');
     }
-    public function search(Request $request)
+    public function search_product(Request $request)
     {
         $query = $request->input('query');
         
@@ -44,4 +45,32 @@ class OrderController extends Controller
 
         return response()->json($products);
     }
+
+    public function search_account(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $account = Order_details::where('fullname', 'LIKE', "%{$query}%")
+            ->orWhere('phone', 'LIKE', "%{$query}%")
+            ->groupBy('user_id')
+            ->get(); // Lấy bản ghi đầu tiên
+    
+        return response()->json($account);
+    }
+    
+
+    
+    public function storeInSession(Request $request)
+    {
+        $request->session()->put('account_search_results', $request->input('results'));
+        return response()->json(['success' => true]);
+    }
+    public function getSessionData(Request $request)
+    {
+        $data = $request->session()->get('account_search_results');
+        dd($data); // Dump and die
+    }
+    
+
+    
 }

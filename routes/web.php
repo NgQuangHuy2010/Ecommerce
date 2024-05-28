@@ -82,7 +82,11 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::get("/order", [OrderController::class, 'index'])->name('ht.order');
     Route::get("/order/details/{id}", [OrderController::class, 'order_details'])->name('ht.order_details');
     Route::match(['get', 'post'], '/order/add', [OrderController::class, 'add_order'])->name('ht.order_add');
-    Route::post('/search-products', [OrderController::class, 'search'])->name('product.search');
+    Route::post('/search-products', [OrderController::class, 'search_product'])->name('product.search');
+    Route::post('/search-account', [OrderController::class, 'search_account'])->name('account.search');
+    Route::post('/account/store-in-session', [OrderController::class, 'storeInSession'])->name('account.storeInSession');
+
+Route::get('/account/session-data', [OrderController::class, 'getSessionData'])->name('account.sessionData');
 
 })->middleware(Phanquyen::class);;
 
