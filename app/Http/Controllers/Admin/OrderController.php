@@ -8,18 +8,23 @@ use App\Models\Order_details;
 use App\Models\OrderMomo;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
-    public function index(){
-        $data['order']= OrderMomo::get();
+    public function index()
+    {
+        $data['order'] = OrderMomo::get();
         return view("adminHT/order/index", $data);
     }
-    public function order_details($id=null){
-        $order_details= Order_details::where('order_id','=', $id)->get();
+    public function order_details($id = null)
+    {
+        $order_details = Order_details::where('order_id', '=', $id)->get();
 
         $formattedOrders = [];
-        foreach ( $order_details as $order) {
+        foreach ($order_details as $order) {
             $formattedProducts = [];
             $products = json_decode($order->products, true);
             foreach ($products as $product) {
@@ -33,44 +38,94 @@ class OrderController extends Controller
 
     }
 
-    public function add_order(){
-       return view ('adminHT/order/add_order');
-    }
-    public function search_product(Request $request)
+    public function add_order(Request $request)
     {
-        $query = $request->input('query');
+        $apiController = new OrderController();
+        $locations = $apiController->getLocations($request);
+
+        return view('adminHT/order/add_order', compact('locations'));
+    }
+
+    public function getLocations(Request $request)
+    {
+        $json = Storage::get('json_data/VN.json');
+        $locations = json_decode($json, true);
+
+        // Trả về dữ liệu
+        return $locations;
+
+    }
+public function saveinfoCustomer(Request $request){
+    $request->validate([
+        'fullname' => 'required|string',
+        'email' => 'required|email',
+        'phone' => 'required|string',
+        'address' => 'required|string',
+    ]);
+
+   
+    // lưu session vào Shipment_Details
+    $request->session()->put('shipment_details', [
+        'fullname' => $request->fullname,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'province' => $request->selected_province,
+        'district' => $request->selected_district,
+        'ward' => $request->selected_ward,
         
-        // Giả sử bạn có model Product và muốn tìm kiếm theo tên sản phẩm
-        $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+    ]);
 
-        return response()->json($products);
-    }
 
-    public function search_account(Request $request)
-    {
-        $query = $request->input('query');
-    
-        $account = Order_details::where('fullname', 'LIKE', "%{$query}%")
-            ->orWhere('phone', 'LIKE', "%{$query}%")
-            ->groupBy('user_id')
-            ->get(); // Lấy bản ghi đầu tiên
-    
-        return response()->json($account);
-    }
-    
 
-    
-    public function storeInSession(Request $request)
-    {
-        $request->session()->put('account_search_results', $request->input('results'));
-        return response()->json(['success' => true]);
-    }
-    public function getSessionData(Request $request)
-    {
-        $data = $request->session()->get('account_search_results');
-        dd($data); // Dump and die
-    }
-    
-
-    
 }
+
+public function search_product(Request $request)
+{
+    $query = $request->input('query');
+    
+    // Giả sử bạn có model Product và muốn tìm kiếm theo tên sản phẩm
+    $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+
+    return response()->json($products);
+}
+
+
+public function saveProducts(Request $request)
+{
+    $request->validate([
+        'products' => 'required|string',
+        'totalPayment' => 'required|string',
+    ]);
+
+    // Lấy thông tin hiện có trong session
+    $shipmentDetails = $request->session()->get('shipment_details', []);
+
+    // Giải mã chuỗi JSON thành mảng sản phẩm
+    $products = json_decode($request->products, true);
+
+    // Thêm thông tin sản phẩm vào mảng shipment_details
+    $shipmentDetails['products'] = $products;
+
+    // Lưu totalPayment vào mảng shipment_details
+    $shipmentDetails['totalPayment'] = $request->totalPayment;
+
+    // Lưu lại mảng vào session
+    $request->session()->put('shipment_details', $shipmentDetails);
+
+    // Kiểm tra xem mảng đã được cập nhật trong session chưa
+    dd($request->session()->get('shipment_details'));
+
+    return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
+}
+
+
+
+
+
+}
+
+
+
+
+

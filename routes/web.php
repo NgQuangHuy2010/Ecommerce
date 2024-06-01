@@ -17,6 +17,7 @@ use App\Http\Controllers\Interface\CheckoutController;
 use App\Http\Controllers\Interface\PaymentController;
 
 use App\Http\Middleware\Phanquyen;
+
 //duong dan trang chu interface
 Route::get("/", [HomeController::class, 'index'])->name("gd.home");
 
@@ -24,8 +25,8 @@ Route::get("/details/{name}/{key}", [HomeController::class, 'details'])->name("g
 Route::get("/search/{key?}", [HomeController::class, 'search'])->name("gd.search"); //{key?} ? la nhap gi cung dc
 Route::get("/no-result", [HomeController::class, 'no_result'])->name("gd.no_result");
 //checkout
-Route::match(['get','post'],"/check-out", [CheckoutController::class, 'checkout'])->name("gd.checkout"); 
-Route::post("/payment", [CheckoutController::class, 'save_information'])->name("gd.save_information"); 
+Route::match(['get', 'post'], "/check-out", [CheckoutController::class, 'checkout'])->name("gd.checkout");
+Route::post("/payment", [CheckoutController::class, 'save_information'])->name("gd.save_information");
 // Route::get("/check-out", [ApiVietNam::class, 'getApi'])->name("gd.getApi");
 //payment
 Route::get('/payment/confirm', [PaymentController::class, 'Payment'])->name("gd.savepayment");
@@ -33,9 +34,9 @@ Route::get('/payment/confirm', [PaymentController::class, 'Payment'])->name("gd.
 Route::get("/product/{key}", [User_ProductsController::class, 'product'])->name("gd.product");
 Route::get('/products/sort/{type}', [User_ProductsController::class, 'sort'])->name('product.sort');
 //login
-Route::match(['get','post'],"/login", [SecureController::class, 'login'])->name("gd.login");
+Route::match(['get', 'post'], "/login", [SecureController::class, 'login'])->name("gd.login");
 Route::get("/logout", [SecureController::class, 'logout'])->name("gd.logout");
-Route::match(['get','post'],"/register", [SecureController::class, 'register'])->name("gd.register");
+Route::match(['get', 'post'], "/register", [SecureController::class, 'register'])->name("gd.register");
 // Route::get("/test", [SecureController::class, 'test'])->name("gd.test");
 //reset password
 Route::get("/forget-password", [SecureController::class, 'forgetPassword'])->name("gd.forget");
@@ -43,9 +44,9 @@ Route::post("/forget-password", [SecureController::class, 'forgetPasswordPost'])
 Route::get("/reset-password/{token}", [SecureController::class, 'resetPassword'])->name("gd.resetPassword");
 Route::post("/reset-password", [SecureController::class, 'resetPasswordPost'])->name("gd.resetPasswordPost");
 //cart
-Route::match(['get','post'],"/cart", [CartController::class, 'cart'])->name("gd.cart");
-Route::post("/cart",[CartController::class,'addcart'])->name("gd.addcart");
-Route::get("/del-cart/{key}",[CartController::class,'delcart'])->name("gd.delcart");
+Route::match(['get', 'post'], "/cart", [CartController::class, 'cart'])->name("gd.cart");
+Route::post("/cart", [CartController::class, 'addcart'])->name("gd.addcart");
+Route::get("/del-cart/{key}", [CartController::class, 'delcart'])->name("gd.delcart");
 //history order
 Route::get("/history-order", [SecureController::class, 'historyOrder'])->name("gd.history");
 // Show search order form and handle search order
@@ -66,27 +67,29 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::match(['get', 'post'], '/products/add', [ProductsController::class, 'add'])->name('ht.productsadd');
     Route::match(['get', 'post'], '/products/update/{key}', [ProductsController::class, 'update'])->name('ht.productsupdate');
     Route::get('/products/delete/{key}', [ProductsController::class, 'delete'])->name('ht.productsdelete');
-//logo
+    //logo
     Route::get("/logo", [LogoController::class, 'index'])->name('ht.logo');
     Route::match(['get', 'post'], '/logo/add', [LogoController::class, 'add'])->name('ht.logo_add');
     Route::match(['get', 'post'], '/logo/update/{key}', [LogoController::class, 'update'])->name('ht.logo_update');
     Route::get('/logo/delete/{key}', [LogoController::class, 'delete'])->name('ht.logo_delete');
-  
+
     //banner
     Route::get("/banner", [BannerController::class, 'index'])->name('ht.banner');
     Route::match(['get', 'post'], '/banner/add', [BannerController::class, 'add'])->name('ht.banner_add');
     Route::match(['get', 'post'], '/banner/update/{key}', [BannerController::class, 'update'])->name('ht.banner_update');
     Route::get('/banner/delete/{key}', [BannerController::class, 'delete'])->name('ht.banner_delete');
-  
+
     //order
     Route::get("/order", [OrderController::class, 'index'])->name('ht.order');
     Route::get("/order/details/{id}", [OrderController::class, 'order_details'])->name('ht.order_details');
     Route::match(['get', 'post'], '/order/add', [OrderController::class, 'add_order'])->name('ht.order_add');
+    Route::post("/order-processing", [OrderController::class, 'saveinfoCustomer']);
     Route::post('/search-products', [OrderController::class, 'search_product'])->name('product.search');
-    Route::post('/search-account', [OrderController::class, 'search_account'])->name('account.search');
-    Route::post('/account/store-in-session', [OrderController::class, 'storeInSession'])->name('account.storeInSession');
+    Route::post('/saveProducts', [OrderController::class, 'saveProducts'])->name("ht.save_info_Customer");
 
-Route::get('/account/session-data', [OrderController::class, 'getSessionData'])->name('account.sessionData');
 
-})->middleware(Phanquyen::class);;
+
+
+})->middleware(Phanquyen::class);
+;
 

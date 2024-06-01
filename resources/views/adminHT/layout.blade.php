@@ -16,6 +16,7 @@
 
     <link href="{{asset('public')}}/webadmin/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="{{asset('public')}}/editor/ckeditor/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
@@ -47,7 +48,7 @@
             </div>
         </div>
         <div class="header">
-                <div class="header-content">
+            <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
@@ -156,7 +157,8 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-user "></i><span class="nav-text">Quản lý
+                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-user "></i><span
+                                class="nav-text">Quản lý
                                 user</span></a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class=" fa fa-list"></i><span class="nav-text">Danh sách sản phẩm</span></a>
@@ -170,13 +172,21 @@
 
                     <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="fa fa-file-image-o "></i><span
                                 class="nav-text">Banner</span></a></li>
-                    <li><a href="{{route('ht.order')}}" aria-expanded="false"><i class="fa fa-line-chart "></i><span
-                                class="nav-text">Đơn hàng</span></a></li>
+
+
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="fa fa-line-chart "></i><span class="nav-text">Đơn hàng</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{route('ht.order_add')}}">Tạo mới đơn hàng</a></li>
+                            <li><a href="{{route('ht.order')}}">Đã thanh toán</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
         @yield('content')
     </div>
+
     <!-- Required vendors -->
     <script src="{{asset('public')}}/webadmin/assets/vendor/global/global.min.js"></script>
     <script src="{{asset('public')}}/webadmin/assets/js/quixnav-init.js"></script>

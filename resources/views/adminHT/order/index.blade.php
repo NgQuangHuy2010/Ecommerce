@@ -10,9 +10,7 @@
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                    <a href="{{route('ht.order_add')}}" class="btn btn-rounded btn-info"><span class="btn-icon-left text-info"><i
-                                class="fa fa-plus color-info"></i>
-                        </span>Tạo đơn hàng</a>
+                
 
                 </ol>
             </div>
