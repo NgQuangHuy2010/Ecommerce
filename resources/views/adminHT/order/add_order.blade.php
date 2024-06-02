@@ -5,7 +5,7 @@
 
 <div class="content-body">
     <div class="container-fluid">
-        <form action="{{route('ht.save_info_Customer')}}" method="post" id="shipment-form" class="step-form-horizontal">
+        <form action="{{route('ht.saveOrderNew')}}" method="post" id="shipment-form" class="step-form-horizontal">
             @csrf
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">

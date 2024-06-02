@@ -55,69 +55,58 @@ class OrderController extends Controller
         return $locations;
 
     }
-public function saveinfoCustomer(Request $request){
-    $request->validate([
-        'fullname' => 'required|string',
-        'email' => 'required|email',
-        'phone' => 'required|string',
-        'address' => 'required|string',
-    ]);
-
-   
-    // lưu session vào Shipment_Details
-    $request->session()->put('shipment_details', [
-        'fullname' => $request->fullname,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'address' => $request->address,
-        'province' => $request->selected_province,
-        'district' => $request->selected_district,
-        'ward' => $request->selected_ward,
-        
-    ]);
+    public function saveOrderNew(Request $request)
+    {
+        $request->validate([
+            'fullname' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+        ]);
 
 
+        // lưu session vào Shipment_Details
+        $request->session()->put('shipment_details', [
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'province' => $request->selected_province,
+            'district' => $request->selected_district,
+            'ward' => $request->selected_ward,
 
-}
+        ]);
+        // Lấy thông tin hiện có trong session
+        $shipmentDetails = $request->session()->get('shipment_details', []);
 
-public function search_product(Request $request)
-{
-    $query = $request->input('query');
-    
-    // Giả sử bạn có model Product và muốn tìm kiếm theo tên sản phẩm
-    $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+        // Giải mã chuỗi JSON thành mảng sản phẩm
+        $products = json_decode($request->products, true);
 
-    return response()->json($products);
-}
+        // Thêm thông tin sản phẩm vào mảng shipment_details
+        $shipmentDetails['products'] = $products;
+
+        // Lưu totalPayment vào mảng shipment_details
+        $shipmentDetails['totalPayment'] = $request->totalPayment;
+
+        // Lưu lại mảng vào session
+        $request->session()->put('shipment_details', $shipmentDetails);
+        dd($request->session()->get('shipment_details'));
+
+        return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
+
+    }
+
+    public function search_product(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Giả sử bạn có model Product và muốn tìm kiếm theo tên sản phẩm
+        $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+
+        return response()->json($products);
+    }
 
 
-public function saveProducts(Request $request)
-{
-    $request->validate([
-        'products' => 'required|string',
-        'totalPayment' => 'required|string',
-    ]);
-
-    // Lấy thông tin hiện có trong session
-    $shipmentDetails = $request->session()->get('shipment_details', []);
-
-    // Giải mã chuỗi JSON thành mảng sản phẩm
-    $products = json_decode($request->products, true);
-
-    // Thêm thông tin sản phẩm vào mảng shipment_details
-    $shipmentDetails['products'] = $products;
-
-    // Lưu totalPayment vào mảng shipment_details
-    $shipmentDetails['totalPayment'] = $request->totalPayment;
-
-    // Lưu lại mảng vào session
-    $request->session()->put('shipment_details', $shipmentDetails);
-
-    // Kiểm tra xem mảng đã được cập nhật trong session chưa
-    dd($request->session()->get('shipment_details'));
-
-    return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
-}
 
 
 

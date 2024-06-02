@@ -83,9 +83,9 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::get("/order", [OrderController::class, 'index'])->name('ht.order');
     Route::get("/order/details/{id}", [OrderController::class, 'order_details'])->name('ht.order_details');
     Route::match(['get', 'post'], '/order/add', [OrderController::class, 'add_order'])->name('ht.order_add');
-    Route::post("/order-processing", [OrderController::class, 'saveinfoCustomer']);
+    Route::post("/order-processing", [OrderController::class, 'saveOrderNew'])->name("ht.saveOrderNew");
     Route::post('/search-products', [OrderController::class, 'search_product'])->name('product.search');
-    Route::post('/saveProducts', [OrderController::class, 'saveProducts'])->name("ht.save_info_Customer");
+   
 
 
 
