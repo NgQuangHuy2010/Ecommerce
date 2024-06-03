@@ -33,6 +33,7 @@
                                         <th>Mã đơn hàng</th>
                                         <th>Giá tiền</th>
                                         <th>Phương thức thanh toán</th>
+                                        <th>Trạng thái</th>
                                         <th>Ngày thanh toán</th>
 
                                         <th></th>
@@ -46,6 +47,8 @@
                                         <td>{{$value['order_id']}}</td>
                                         <td>{{ number_format($value['amount'], 0, ',', '.') }} VNĐ</td>
                                         <td>{{$value['order_info']}}</td>
+                                        <td  style=" color: #00CC00;">{{$value['message']}}</td>
+
                                         <td>
                                             {{$value['created_at']}}
                                         </td>

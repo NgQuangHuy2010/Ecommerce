@@ -90,7 +90,7 @@ class OrderController extends Controller
 
         // Lưu lại mảng vào session
         $request->session()->put('shipment_details', $shipmentDetails);
-        dd($request->session()->get('shipment_details'));
+       // dd($request->session()->get('shipment_details'));
 
         return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
 

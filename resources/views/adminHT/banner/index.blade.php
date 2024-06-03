@@ -13,9 +13,9 @@
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                        
-                        <a href="{{route('ht.banner_add')}}" class="btn btn-rounded btn-info"><span
+                        <!-- <a href="{{route('ht.banner_add')}}" class="btn btn-rounded btn-info"><span
                                         class="btn-icon-left text-info"><i class="fa fa-plus color-info"></i>
-                                    </span>Tạo mới</a>
+                                    </span>Tạo mới</a> -->
                         </ol>
                     </div>
                 </div>
@@ -54,8 +54,8 @@
                                                 <td>
                                                 <a href="{{route('ht.banner_update',$value['id'])}}" class="btn "><i
                                                         class="fa fa-pencil" style="color: green; font-size:13px;"></i></a>
-                                                <a href="{{route('ht.banner_delete',$value['id'])}}" class="btn "><i
-                                                        class="fa fa-trash " style="color: red; font-size:13px;"></i></a>
+                                                <!-- <a href="{{route('ht.banner_delete',$value['id'])}}" class="btn "><i
+                                                        class="fa fa-trash " style="color: red; font-size:13px;"></i></a> -->
 
                                                 </td>
                                             </tr>

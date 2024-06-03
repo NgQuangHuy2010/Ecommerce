@@ -51,12 +51,17 @@ Route::get("/del-cart/{key}", [CartController::class, 'delcart'])->name("gd.delc
 Route::get("/history-order", [SecureController::class, 'historyOrder'])->name("gd.history");
 // Show search order form and handle search order
 Route::match(['get', 'post'], '/search-order', [SecureController::class, 'searchOrder'])->name('gd.searchorder');
-
 //end history order
+
+Route::prefix('system')->group(function () {
+    Route::match(['get', 'post'], "/login", [SecurityController::class, 'login'])->name("ht.login");
+    Route::get("/logout", [SecurityController::class, 'logout'])->name("ht.logout");
+});
+
+
 //dung route group
 Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::get("/admin", [AdminController::class, 'index'])->name("ht.admin");
-    Route::get("/login", [SecurityController::class, 'login'])->name("ht.login");
     //routes category
     Route::get("/categorie", [CategorieController::class, 'categorie'])->name("ht.categorie");
     Route::match(['get', 'post'], '/categorie/add', [CategorieController::class, 'add'])->name('ht.categorieadd');

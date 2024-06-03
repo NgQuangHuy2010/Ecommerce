@@ -133,17 +133,8 @@
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{asset('public')}}/webadmin/assets/app-profile.html"
-                                        class="dropdown-item">
-                                        <i class="icon-user"></i>
-                                        <span class="ml-2">Profile </span>
-                                    </a>
-                                    <a href="{{asset('public')}}/webadmin/assets/email-inbox.html"
-                                        class="dropdown-item">
-                                        <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
-                                    <a href="{{asset('public')}}/webadmin/assets/page-login.html" class="dropdown-item">
+                              
+                                    <a href="{{route('ht.logout')}}" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -178,7 +169,7 @@
                                 class="fa fa-line-chart "></i><span class="nav-text">Đơn hàng</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('ht.order_add')}}">Tạo mới đơn hàng</a></li>
-                            <li><a href="{{route('ht.order')}}">Đã thanh toán</a></li>
+                            <li><a href="{{route('ht.order')}}">Danh sách đơn hàng</a></li>
                         </ul>
                     </li>
                 </ul>

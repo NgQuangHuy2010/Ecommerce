@@ -137,8 +137,8 @@ class CheckoutController extends Controller
                 'amount' => $amount,
                 'orderInfo' => $orderInfo,
                 'created_at' => $dateTime,
-                'updated_at' => $dateTime
-
+                'updated_at' => $dateTime,
+                'message' => 'Đã thanh toán'
             ]);
 
             // dd($request->session()->get('order'));

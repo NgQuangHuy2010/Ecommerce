@@ -18,7 +18,6 @@
                     <ol class="breadcrumb">
                         <button type="submit" class="btn btn-primary">Lưu</button>
                         <button class="btn btn-light mx-2">Tạo lại</button>
-
                     </ol>
                 </div>
             </div>
@@ -28,8 +27,6 @@
                     <div class="card">
 
                         <div class="card-body">
-
-
                             <div>
                                 <section>
                                     <div class="row">
@@ -185,17 +182,10 @@
 
                             </div>
         </form>
-
-
-
     </div>
 </div>
 </div>
 </div>
-
-
-
-
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.6.2/js/dropify.min.js"></script>

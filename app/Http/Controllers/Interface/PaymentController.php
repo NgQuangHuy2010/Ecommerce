@@ -21,7 +21,9 @@ class PaymentController extends Controller
             'amount' => $ordermomo_sesion['amount'],
             'order_info' => $ordermomo_sesion['orderInfo'],
             'created_at' => $ordermomo_sesion['created_at'],
-            'updated_at' => $ordermomo_sesion['updated_at']
+            'updated_at' => $ordermomo_sesion['updated_at'],
+            'message' => $ordermomo_sesion['message']
+            
         ]);
         $order = DB::table('order_momo')->where('order_id', '=', $ordermomo_sesion['orderId'])->first();
         $order_details = $request->session()->get('shipment_details');
