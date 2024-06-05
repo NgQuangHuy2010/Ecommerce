@@ -1,6 +1,7 @@
 @extends ('adminHT.layout')
 @section ('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.6.2/css/dropify.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 
 <div class="content-body">
@@ -175,6 +176,7 @@
                                             <input type="hidden" id="selected_ward" name="selected_ward" value="">
                                             <input type="hidden" id="products" name="products" value="">
                                             <input type="hidden" id="totalPayment" name="totalPayment" value="">
+                                            <input type="hidden" name="random_number" id="randomNumberInput"> 
 
                                         </div>
                                     </div>
@@ -202,6 +204,14 @@
     const productSearchRoute = '{{ route("product.search") }}';
 </script>
 <script src="{{ asset('public\webadmin\assets\js\add-order-products.js') }}"></script>
+<script>
+    // Tạo số ngẫu nhiên
+    var randomNumber = Math.floor(Math.random() * 100000000); // Ví dụ: Số ngẫu nhiên từ 0 đến 999999
 
-
+    // Lưu số ngẫu nhiên vào một input ẩn trong form
+    document.getElementById('randomNumberInput').value = randomNumber;
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
 @endsection

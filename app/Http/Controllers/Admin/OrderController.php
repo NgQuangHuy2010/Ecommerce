@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Order_details;
 use App\Models\OrderMomo;
 use App\Models\Products;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -74,7 +75,7 @@ class OrderController extends Controller
             'province' => $request->selected_province,
             'district' => $request->selected_district,
             'ward' => $request->selected_ward,
-
+            'orderId' => $request->random_number,
         ]);
         // Lấy thông tin hiện có trong session
         $shipmentDetails = $request->session()->get('shipment_details', []);
@@ -86,13 +87,57 @@ class OrderController extends Controller
         $shipmentDetails['products'] = $products;
 
         // Lưu totalPayment vào mảng shipment_details
-        $shipmentDetails['totalPayment'] = $request->totalPayment;
+        // Loại bỏ tất cả các ký tự không phải là số
+        $shipmentDetails['totalPayment'] = preg_replace('/\D/', '', $request->totalPayment);
+
+
 
         // Lưu lại mảng vào session
         $request->session()->put('shipment_details', $shipmentDetails);
-       // dd($request->session()->get('shipment_details'));
+        //dd($request->session()->get('shipment_details'));
+        $dateTime = Carbon::now();
+        $userId = auth()->id();
+        //return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
+        $saveOrder = $request->session()->get('shipment_details');
+        DB::table('order_momo')->insert([
+            'user_id' => $userId,
+            'partner_code' => 'TM1234567',
+            'order_id' => $saveOrder['orderId'],
+            'amount' => $saveOrder['totalPayment'],
+            'order_info' => 'Thanh toán bằng tiền mặt',
+            'created_at' => $dateTime,
+            'updated_at' => $dateTime,
+            'message' => 'Chưa thanh toán'
+        ]);
+        $order = DB::table('order_momo')->where('order_id', '=', $saveOrder['orderId'])->first();
+        $order_details = $request->session()->get('shipment_details');
+        if ($order_details) {
+            // khởi tạo mảng trống
+            $products = [];
+            //$order_details['products'] là mảng chứa tất cả các sản phẩm
+            // $order_details chứa khóa products khóa này có các chi tiết từng mảng sản phẩm (mảng trong mảng), vòng lặp duyệt qua từng mảng gán vào $item và thêm vào $products[] 
+            foreach ($order_details['products'] as $item) {
+                $products[] = $item;
+            }
+            DB::table('order_details')->insert([
+                'order_id' => $order->id,
+                'user_id' => $userId,
+                'order_id_momo' => $saveOrder['orderId'],
+                'fullname' => $order_details['fullname'],
+                'email' => $order_details['email'],
+                'phone' => $order_details['phone'],
+                'address' => $order_details['address'],
+                'province' => $order_details['province'],
+                'district' => $order_details['district'],
+                'ward' => $order_details['ward'],
+                'total_price' => $order_details['totalPayment'],
+                'number_random' => 1,
+                'products' => json_encode($products), //chứa theo dạng json
+            ]);
+        }
 
-        return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
+        toastr()->success(' Tạo mới đơn hàng thành công!');
+        return redirect()->back();
 
     }
 

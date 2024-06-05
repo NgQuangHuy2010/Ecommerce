@@ -102,7 +102,7 @@ function updateTotalPrice() {
         let price = parseInt(cell.innerText.replace(/\D/g, ''));
         totalPrice += price;
     });
-    document.getElementById('total-price').innerText = totalPrice.toLocaleString() + ' đ';
+    document.getElementById('total-price').innerText = totalPrice.toLocaleString() ;
     updateTotalPayment();
 }
 
@@ -123,7 +123,7 @@ function updateTotalPayment() {
         let totalPrice = parseInt(totalPriceElement.innerText.replace(/\D/g, '')) || 0;
         let discount = parseInt(discountElement.innerText.replace(/\D/g, '')) || 0;
         let totalPayment = totalPrice - discount;
-        totalPaymentElement.innerText = totalPayment.toLocaleString() + ' đ';
+        totalPaymentElement.innerText = totalPayment.toLocaleString()  + ' đ';
     }
 }
 
@@ -135,17 +135,17 @@ $(document).ready(function () {
         var products = [];
         $('#search-results table tbody tr').each(function () {
             var name = $(this).find('strong').text();
-            var keyword = $(this).find('p').text().replace('SKU: ', '');
+           // var keyword = $(this).find('p').text().replace('SKU: ', '');
             var quantity = $(this).find('.quantity').val();
-            var price = $(this).find('.quantity').data('price');
-            var totalPrice = $(this).find('.total-price').text().replace(/\D/g, '');
+            // var price = $(this).find('.quantity').data('price');
+            // var totalPrice = $(this).find('.total-price').text().replace(/\D/g, '');
 
             products.push({
-                name: name,
-                keyword: keyword,
+                name_product: name,
+                //keyword: keyword,
                 quantity: quantity,
-                price: price,
-                totalPrice: totalPrice
+                // price: price,
+                // totalPrice: totalPrice
             });
         });
 

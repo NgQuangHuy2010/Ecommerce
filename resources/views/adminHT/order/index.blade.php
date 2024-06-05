@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                
+
 
                 </ol>
             </div>
@@ -40,15 +40,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php    foreach ($order as $value) {  
-    ?>
+                                    <?php    foreach ($order as $value) {    ?>
                                     <tr>
                                         <td>{{$value['id']}}</td>
                                         <td>{{$value['order_id']}}</td>
                                         <td>{{ number_format($value['amount'], 0, ',', '.') }} VNĐ</td>
                                         <td>{{$value['order_info']}}</td>
-                                        <td  style=" color: #00CC00;">{{$value['message']}}</td>
-
+                                        <td
+                                            style="color: {{ $value['message'] == 'Đã thanh toán' ? '#00CC00' : '#FF0000' }};">
+                                            {{$value['message']}}
+                                        </td>
                                         <td>
                                             {{$value['created_at']}}
                                         </td>
@@ -59,11 +60,13 @@
                                                     Chọn
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                <a href="{{route('ht.order_details',$value['id'])}}" class="btn dropdown-item"><i class="fa fa-eye"
-                                                            style="color: green; font-size:14px; margin-right:10px;"></i>Xem chi tiết</a>
+                                                    <a href="{{route('ht.order_details', $value['id'])}}"
+                                                        class="btn dropdown-item"><i class="fa fa-eye"
+                                                            style="color: green; font-size:14px; margin-right:10px;"></i>Xem
+                                                        chi tiết</a>
                                                     <a href="" class="btn dropdown-item"><i class="fa fa-trash "
                                                             style="color: red; font-size:14px; margin-right:10px;"></i>Xóa</a>
-                                                  
+
 
                                                 </div>
                                             </div>
