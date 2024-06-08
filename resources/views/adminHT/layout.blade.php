@@ -146,27 +146,31 @@
             </div>
         </div>
         <div class="quixnav">
-            <div class="quixnav-scroll">
+            <div class="quixnav-scroll mt-4">
                 <ul class="metismenu" id="menu">
-                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-user "></i><span
-                                class="nav-text">Quản lý
-                                user</span></a></li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="fa fa-user mr-2"></i><span class="nav-text">Quản lý tài khoản</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{route('ht.account')}}">Danh sách tài khoản</a></li>
+                            <li><a href="{{route('ht.role')}}">Phân vai trò</a></li>
+                        </ul>
+                    </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class=" fa fa-list"></i><span class="nav-text">Danh sách sản phẩm</span></a>
+                                class="mr-2 fa fa-list"></i><span class="nav-text">Danh sách sản phẩm</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('ht.categorie')}}">Danh mục</a></li>
                             <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-address-card "></i><span
+                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-address-card mr-2"></i><span
                                 class="nav-text">Logo</span></a></li>
 
-                    <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="fa fa-file-image-o "></i><span
+                    <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="fa fa-file-image-o mr-2"></i><span
                                 class="nav-text">Banner</span></a></li>
 
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="fa fa-line-chart "></i><span class="nav-text">Đơn hàng</span></a>
+                                class="fa fa-line-chart mr-2"></i><span class="nav-text">Đơn hàng</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('ht.order_add')}}">Tạo mới đơn hàng</a></li>
                             <li><a href="{{route('ht.order')}}">Danh sách đơn hàng</a></li>

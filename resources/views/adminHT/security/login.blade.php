@@ -44,7 +44,7 @@
 
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
 
-                                            <button type="submit" class="btn btn-success">Đăng nhập </button>
+                                            <button type="submit" class="btn btn-success form-control">Đăng nhập </button>
                                         </div>
                                     </form>
                                 </div>

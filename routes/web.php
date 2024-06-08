@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Interface\SecureController;
 use App\Http\Controllers\Interface\User_ProductsController;
@@ -90,9 +92,15 @@ Route::middleware('phanquyen')->prefix("system")->group(function () {
     Route::match(['get', 'post'], '/order/add', [OrderController::class, 'add_order'])->name('ht.order_add');
     Route::post("/order-processing", [OrderController::class, 'saveOrderNew'])->name("ht.saveOrderNew");
     Route::post('/search-products', [OrderController::class, 'search_product'])->name('product.search');
-   
 
-
+    //account
+    Route::get("/account", [AccountController::class, 'index'])->name('ht.account');
+    Route::match(['get', 'post'], '/account/add', [AccountController::class, 'add_account'])->name('ht.account_add');
+    Route::match(['get', 'post'], '/account/update/{key}', [AccountController::class, 'edit_account'])->name('ht.account_update');
+    Route::get('/account/delete/{key}', [AccountController::class, 'delete_account'])->name('ht.account_delete');
+    //role
+    Route::get("/role", [RoleController::class, 'index_role'])->name('ht.role');
+    Route::match(['get', 'post'], '/role/add', [RoleController::class, 'add_role'])->name('ht.role_add');
 
 
 })->middleware(Phanquyen::class);
