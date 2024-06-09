@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +19,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $permissions = [
+            'manage_accounts',
+            'manage_products',
+            'manage_logo',
+            'manage_banner',
+            'manage_orders',
+        ];
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
     }
 }

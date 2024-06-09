@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderMomo extends Model
 {
-    protected $table = 'order_momo';
+    protected $table = 'order_shop';
     protected $primaryKey = 'id';
-    protected $fillable =['	partner_code','order_id','amount','order_info','created_at','updated_at'];
+    protected $fillable =['partner_code','order_id','amount','order_info','created_at','updated_at'];
     public $timestamps = true;
 }

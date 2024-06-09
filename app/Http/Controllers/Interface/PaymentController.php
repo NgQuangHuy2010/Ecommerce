@@ -14,7 +14,7 @@ class PaymentController extends Controller
     public function Payment(Request $request)
     {
         $ordermomo_sesion = $request->session()->get('order');
-        DB::table('order_momo')->insert([
+        DB::table('order_shop')->insert([
             'user_id' => $ordermomo_sesion['user_id'],
             'partner_code' => $ordermomo_sesion['partnerCode'],
             'order_id' => $ordermomo_sesion['orderId'],
@@ -25,7 +25,7 @@ class PaymentController extends Controller
             'message' => $ordermomo_sesion['message']
             
         ]);
-        $order = DB::table('order_momo')->where('order_id', '=', $ordermomo_sesion['orderId'])->first();
+        $order = DB::table('order_shop')->where('order_id', '=', $ordermomo_sesion['orderId'])->first();
         $order_details = $request->session()->get('shipment_details');
         if ($order_details) {
             // khởi tạo mảng trống
@@ -35,7 +35,7 @@ class PaymentController extends Controller
             foreach ($order_details['products'] as $item) {
                 $products[] = $item;
             }
-            DB::table('order_details')->insert([
+            DB::table('order_details_shop')->insert([
                 'order_id' => $order->id,
             'user_id' => $ordermomo_sesion['user_id'],
                 'order_id_momo' => $ordermomo_sesion['orderId'],
@@ -53,7 +53,7 @@ class PaymentController extends Controller
         }
         $user_email = $request->session()->get('shipment_details');
         //random để so sánh nếu giống nhau thì gửi mail ,cột number_random =  $user_email['random_number'] trong session
-        $order = DB::table('order_details')->where('number_random', $user_email['random_number'])->first();
+        $order = DB::table('order_details_shop')->where('number_random', $user_email['random_number'])->first();
         // Gửi email
         Mail::send('mail.ordersuccess', ['order' => $order], function ($message) use ($user_email) {
             $message->to($user_email['email'])->subject("Thanh toán thành công");

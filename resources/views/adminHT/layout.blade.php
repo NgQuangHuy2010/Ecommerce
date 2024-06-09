@@ -133,7 +133,12 @@
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                              
+                                @if(Auth::check())
+                                <a href="" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">{{ Auth::user()->fullname }} </span>
+                                    </a>
+                                @endif
                                     <a href="{{route('ht.logout')}}" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
@@ -148,35 +153,50 @@
         <div class="quixnav">
             <div class="quixnav-scroll mt-4">
                 <ul class="metismenu" id="menu">
-                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="fa fa-user mr-2"></i><span class="nav-text">Quản lý tài khoản</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{route('ht.account')}}">Danh sách tài khoản</a></li>
-                            <li><a href="{{route('ht.role')}}">Phân vai trò</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="mr-2 fa fa-list"></i><span class="nav-text">Danh sách sản phẩm</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{route('ht.categorie')}}">Danh mục</a></li>
-                            <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i class="fa fa-address-card mr-2"></i><span
-                                class="nav-text">Logo</span></a></li>
+                    @if (auth()->check())
+                        @if (auth()->user()->hasPermission('manage_accounts'))
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                        class="fa fa-user mr-2"></i><span class="nav-text">Quản lý tài khoản</span></a>
+                                <ul aria-expanded="false">
+                                    <li><a href="{{route('ht.account')}}">Danh sách tài khoản</a></li>
+                                    <li><a href="{{route('ht.role')}}">Phân quyền</a></li>
+                                </ul>
+                            </li>
+                        @endif
 
-                    <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i class="fa fa-file-image-o mr-2"></i><span
-                                class="nav-text">Banner</span></a></li>
+                        @if (auth()->user()->hasPermission('manage_products'))
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                        class="mr-2 fa fa-list"></i><span class="nav-text">Danh sách sản phẩm</span></a>
+                                <ul aria-expanded="false">
+                                    <li><a href="{{route('ht.categorie')}}">Danh mục</a></li>
+                                    <li><a href="{{route('ht.products')}}">Sản phẩm</a></li>
+                                </ul>
+                            </li>
+                        @endif
 
+                        @if (auth()->user()->hasPermission('manage_logo'))
+                            <li><a href="{{route('ht.logo')}}" aria-expanded="false"><i
+                                        class="fa fa-address-card mr-2"></i><span class="nav-text">Logo</span></a></li>
+                        @endif
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="fa fa-line-chart mr-2"></i><span class="nav-text">Đơn hàng</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{route('ht.order_add')}}">Tạo mới đơn hàng</a></li>
-                            <li><a href="{{route('ht.order')}}">Danh sách đơn hàng</a></li>
-                        </ul>
-                    </li>
+                        @if (auth()->user()->hasPermission('manage_banner'))
+                            <li><a href="{{route('ht.banner')}}" aria-expanded="false"><i
+                                        class="fa fa-file-image-o mr-2"></i><span class="nav-text">Banner</span></a></li>
+                        @endif
+
+                        @if (auth()->user()->hasPermission('manage_orders'))
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                        class="fa fa-line-chart mr-2"></i><span class="nav-text">Đơn hàng</span></a>
+                                <ul aria-expanded="false">
+                                    <li><a href="{{route('ht.order_add')}}">Tạo mới đơn hàng</a></li>
+                                    <li><a href="{{route('ht.order')}}">Danh sách đơn hàng</a></li>
+                                </ul>
+                            </li>
+                        @endif
+                    @endif
                 </ul>
+
+
             </div>
         </div>
         @yield('content')

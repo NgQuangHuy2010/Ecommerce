@@ -90,7 +90,8 @@
                     class="fa fa-sign-in mr-2" aria-hidden="true"></i>
                 Đăng nhập</button>
             <!-- Button to Open Registration Modal -->
-            @endif          </div>
+            @endif          
+        </div>
     </div>
     <!-- Offcanvas Menu End -->
 

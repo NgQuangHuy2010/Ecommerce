@@ -99,7 +99,7 @@ class OrderController extends Controller
         $userId = auth()->id();
         //return response()->json(['message' => 'Products and Total Payment saved to session successfully']);
         $saveOrder = $request->session()->get('shipment_details');
-        DB::table('order_momo')->insert([
+        DB::table('order_shop')->insert([
             'user_id' => $userId,
             'partner_code' => 'TM1234567',
             'order_id' => $saveOrder['orderId'],
@@ -109,7 +109,7 @@ class OrderController extends Controller
             'updated_at' => $dateTime,
             'message' => 'Chưa thanh toán'
         ]);
-        $order = DB::table('order_momo')->where('order_id', '=', $saveOrder['orderId'])->first();
+        $order = DB::table('order_shop')->where('order_id', '=', $saveOrder['orderId'])->first();
         $order_details = $request->session()->get('shipment_details');
         if ($order_details) {
             // khởi tạo mảng trống

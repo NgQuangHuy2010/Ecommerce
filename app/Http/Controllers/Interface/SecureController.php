@@ -193,10 +193,10 @@ class SecureController extends Controller
         if (auth()->check()) {
             $userId = auth()->id(); // Lấy ID của người dùng đã đăng nhập
 
-            $orders = DB::table('order_momo')
-                ->join('order_details', 'order_momo.order_id', '=', 'order_details.order_id_momo')
-                ->where('order_momo.user_id', $userId)
-                ->select('order_momo.*', 'order_details.*')
+            $orders = DB::table('order_shop')
+                ->join('order_details_shop', 'order_shop.order_id', '=', 'order_details_shop.order_id_momo')
+                ->where('order_shop.user_id', $userId)
+                ->select('order_shop.*', 'order_details_shop.*')
                 ->get();
             // chuyển mảng thành chuỗi
             $formattedOrders = [];
@@ -222,10 +222,10 @@ class SecureController extends Controller
             // Xử lý khi phương thức là POST (thực hiện tìm kiếm)
             $order_id_momo = $request->input('order_id_momo');
     
-            $order = DB::table('order_momo')
-                ->join('order_details', 'order_momo.order_id', '=', 'order_details.order_id_momo')
-                ->where('order_momo.order_id', $order_id_momo)
-                ->select('order_momo.*', 'order_details.*')
+            $order = DB::table('order_shop')
+                ->join('order_details', 'order_shop.order_id', '=', 'order_details.order_id_momo')
+                ->where('order_shop.order_id', $order_id_momo)
+                ->select('order_shop.*', 'order_details.*')
                 ->get();
     
             if ($order->isNotEmpty()) {

@@ -15,5 +15,18 @@ class Account extends Authenticatable
     protected $fillable = ["email", "fullname","phone","role", "status"];
     protected $hidden =["password","remember_token" ];
     public $timestamps = false;
-
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'account_role');
+    }
+    public function hasPermission($permission)
+    {
+        // Kiểm tra xem người dùng có vai trò nào có quyền này không
+        foreach ($this->roles as $role) {
+            if ($role->permissions->contains('name', $permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

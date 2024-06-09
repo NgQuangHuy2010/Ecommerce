@@ -9,16 +9,36 @@ use Auth;
 class Phanquyen
 {
   
-    public function handle(Request $request, Closure $next): mixed
+    public function handle(Request $request, Closure $next, $permission)
     {
-        if(Auth::check()){
-            if(Auth::user()->role==1){
-                return $next($request);
-            }else{
-                return redirect()->route('gd.home');
+        $user = Auth::user();
+    
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if ($user) {
+            // Lặp qua các vai trò của người dùng và kiểm tra quyền
+            foreach ($user->roles as $role) {
+                // Kiểm tra xem vai trò có quyền cần thiết không
+                if ($role->permissions->contains('name', $permission)) {
+                    // Nếu có, cho phép tiếp tục xử lý request
+                    return $next($request);
+                }
             }
-        }else{
-             return redirect()->route('ht.login');
-         }
+        }
+    
+        // Nếu người dùng không đăng nhập, không có vai trò, hoặc không có quyền, chuyển hướng đến trang không được phép
+        return redirect()->route('ht.login');
     }
+    
+    // public function handle(Request $request, Closure $next): mixed
+    // {
+    //     if(Auth::check()){
+    //         if(Auth::user()->role==1){
+    //             return $next($request);
+    //         }else{
+    //             return redirect()->route('gd.home');
+    //         }
+    //     }else{
+    //          return redirect()->route('ht.login');
+    //      }
+    // }
 }
