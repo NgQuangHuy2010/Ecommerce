@@ -452,7 +452,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
   font-weight: 500;
-  line-height: 1.2;
+  
   color: #3d4465; }
 
 h1, .h1 {
@@ -1674,8 +1674,7 @@ textarea.form-control {
   .form-check-input:disabled ~ .form-check-label {
     color: #666666; }
 
-.form-check-label {
-  margin-bottom: 0; }
+
 
 .form-check-inline {
   display: inline-flex;
@@ -13552,7 +13551,7 @@ input[type="checkbox"]:checked:after {
 
 .form-check-label {
   margin-left: 5px;
-  margin-top: 3px; }
+  margin-top: 1px; }
 
 .form-check-inline .form-check-input {
   margin-right: 0.625rem; }

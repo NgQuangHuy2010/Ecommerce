@@ -37,29 +37,31 @@
                                                     <div class="form-check mb-2">
                                                         <input type="checkbox" class="form-check-input"
                                                             name="permissions[]" value="manage_accounts">
-                                                        <label class="form-check-label">Quản lý tài khoản</label>
+                                                        <label class="form-check-label h6">Quản lý tài khoản</label>
                                                     </div>
                                                     <div class="form-check mb-2">
                                                         <input type="checkbox" class="form-check-input"
                                                             name="permissions[]" value="manage_products">
-                                                        <label class="form-check-label">Quản lý danh mục và sản
+                                                        <label class="form-check-label h6">Quản lý danh mục và sản
                                                             phẩm</label>
                                                     </div>
                                                     <div class="form-check mb-2">
                                                         <input type="checkbox" class="form-check-input"
                                                             name="permissions[]" value="manage_logo">
-                                                        <label class="form-check-label">Quản lý logo</label>
+                                                        <label class="form-check-label h6">Quản lý logo</label>
                                                     </div>
                                                     <div class="form-check mb-2">
                                                         <input type="checkbox" class="form-check-input"
                                                             name="permissions[]" value="manage_banner">
-                                                        <label class="form-check-label">Quản lý banner</label>
+                                                        <label class="form-check-label h6">Quản lý banner</label>
                                                     </div>
                                                     <div class="form-check mb-2">
                                                         <input type="checkbox" class="form-check-input"
                                                             name="permissions[]" value="manage_orders">
-                                                        <label class="form-check-label">Quản lý đơn hàng</label>
+                                                        <label class="form-check-label  h6">Quản lý đơn hàng</label>
                                                     </div>
+                                                {!!$errors->first('permissions', '<div class="has-error text-danger">:message</div>')!!}
+
                                                 </div>
                                             </div>
                                         </div>

@@ -119,7 +119,7 @@ class OrderController extends Controller
             foreach ($order_details['products'] as $item) {
                 $products[] = $item;
             }
-            DB::table('order_details')->insert([
+            DB::table('order_details_shop')->insert([
                 'order_id' => $order->id,
                 'user_id' => $userId,
                 'order_id_momo' => $saveOrder['orderId'],

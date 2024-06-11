@@ -29,4 +29,12 @@ class Account extends Authenticatable
         }
         return false;
     }
+    public function isAdminHighest()
+    {
+      // Tìm vai trò của tài khoản từ bảng trung gian Account_role
+    $role = Role::find($this->id);
+    
+    // Kiểm tra nếu vai trò tồn tại và có tên là 'Quản trị viên'
+    return $role && $role->name_role == 'Quản trị viên';
+    }
 }

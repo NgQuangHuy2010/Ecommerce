@@ -11,6 +11,6 @@ class Account_role extends Model
     protected $fillable = ["account_id","role_id"];
     protected $primarykey = "id";
     public $timestamps = false;
- 
+  
 }
 

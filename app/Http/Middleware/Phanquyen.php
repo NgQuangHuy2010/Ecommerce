@@ -24,8 +24,6 @@ class Phanquyen
                 }
             }
         }
-    
-        // Nếu người dùng không đăng nhập, không có vai trò, hoặc không có quyền, chuyển hướng đến trang không được phép
         return redirect()->route('ht.login');
     }
     
