@@ -50,17 +50,29 @@
                                                 <td>{{$value['fullname']}}</td>
                                                 <td>{{$value['email']}}</td>
                                                 <td>{{$value['phone']}}</td>
-                                                <td> 
-                                         @if($value->role == 1)
-                                        <span
-                                            style="font-weight:bold; color: #df2a3c;">Quản trị viên</span>
-                                        @else
-                                        <span style="font-weight:bold;">Khách hàng
-                                        </span>
-                                        @endif
-                                    </td>
+                                                <td>
+                                                @php
+                                                    $hasRoles = $value->roles->isNotEmpty();
+                                                @endphp
+                                                @if ($hasRoles)
                                                 
-                                             
+                                                <div class="bootstrap-badge">
+                                                    <span class="badge-rounded badge-secondary">
+                                                    @foreach ($value->roles as $role)
+                                                            <span class="ml-2 ">
+                                                                {{ $role->name_role }}
+                                                            </span>
+                                                        @endforeach
+                                                    </span>
+
+                                                @else
+                                                    <span class="badge-rounded badge-info">
+                                                        Người dùng
+                                                    </span>
+                                                    </div>
+
+                                                @endif
+                                            </td>
                                                 <td>
                                                     @if($value->status == 1)
                                                 <span

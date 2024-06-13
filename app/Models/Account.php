@@ -12,12 +12,12 @@ class Account extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     protected $table="account";
     protected $primarykey="id";
-    protected $fillable = ["email", "fullname","phone","role", "status"];
+    protected $fillable = ["email", "fullname","phone", "status"];
     protected $hidden =["password","remember_token" ];
     public $timestamps = false;
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'account_role');
+        return $this->belongsToMany(Role::class, 'account_role', 'account_id', 'role_id');
     }
     public function hasPermission($permission)
     {

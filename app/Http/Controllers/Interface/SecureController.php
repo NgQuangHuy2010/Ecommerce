@@ -100,7 +100,7 @@ class SecureController extends Controller
             $register->email = $request->email;
             $register->password = bcrypt($request->password);
             $register->phone = $request->phone;
-            $register->role = 0;
+            
             $register->save();
 
             toastr()->success('Đăng ký thành công');
